@@ -67,6 +67,6 @@ export class VideoServices {
     }
 }
 
-const videoServices = new VideoServices();
+const videoServices = new VideoServices()
 
-export default videoServices;
+export default videoServices

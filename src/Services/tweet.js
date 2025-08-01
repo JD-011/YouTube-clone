@@ -40,4 +40,4 @@ export class TweetServices {
 
 const tweetServices = new TweetServices()
 
-export default tweetServices;
+export default tweetServices

@@ -103,4 +103,4 @@ export class UserServices {
 
 const userServices = new UserServices()
 
-export default userServices;
+export default userServices

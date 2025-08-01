@@ -43,6 +43,6 @@ export class CommentServices {
     }
 }
 
-const commentServices = new CommentServices();
+const commentServices = new CommentServices()
 
-export default commentServices;
+export default commentServices
