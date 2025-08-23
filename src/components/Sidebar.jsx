@@ -45,7 +45,6 @@ const navItems = [
 ];
 
 const Sidebar = ({ variant } = "hover", bottomTotalItems = 2) => {
-    console.log("Sidebar rendered with variant:", variant);
     const isSticky = variant === "sticky";
 
     const sidebarClasses = `
