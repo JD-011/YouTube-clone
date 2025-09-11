@@ -1,5 +1,6 @@
 import React from "react";
 import { icons } from "./Icons.jsx";
+import { Outlet } from "react-router-dom";
 
 const navItems = [
     {
@@ -60,26 +61,39 @@ const Sidebar = ({ variant } = "hover", bottomTotalItems = 2) => {
         : "block sm:hidden sm:group-hover:inline";
 
     return (
-        <aside className={sidebarClasses}>
-            <ul className="flex justify-around gap-y-2 sm:sticky sm:top-[106px] sm:min-h-[calc(100vh-130px)] sm:flex-col">
-                {navItems.map((item, i, arr) => (
-                    <li
-                        key={item.name}
-                        className={`
-                ${item.mobileView ? "" : "hidden sm:block"}
-                ${arr.length - i === bottomTotalItems ? "mt-auto" : ""}
-              `}
-                    >
-                        <button className="flex flex-col items-center justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
-                            <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
-                                {item.icon}
-                            </span>
-                            <span className={textClasses}>{item.name}</span>
-                        </button>
-                    </li>
-                ))}
-            </ul>
-        </aside>
+        <>
+            <div className="flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
+                <aside className={sidebarClasses}>
+                    <ul className="flex justify-around gap-y-2 sm:sticky sm:top-[106px] sm:min-h-[calc(100vh-130px)] sm:flex-col">
+                        {navItems.map((item, i, arr) => (
+                            <li
+                                key={item.name}
+                                className={`
+                                ${item.mobileView ? "" : "hidden sm:block"}
+                                ${
+                                    arr.length - i === bottomTotalItems
+                                        ? "mt-auto"
+                                        : ""
+                                }
+                            `}
+                            >
+                                <button className="flex flex-col items-center justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
+                                    <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
+                                        {item.icon}
+                                    </span>
+                                    <span className={textClasses}>
+                                        {item.name}
+                                    </span>
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </aside>
+                <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+                    <Outlet />
+                </section>
+            </div>
+        </>
     );
 };
 

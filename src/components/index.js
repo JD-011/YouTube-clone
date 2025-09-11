@@ -25,6 +25,9 @@ import Video from "./Video";
 import VideoCards from "./VideoCards";
 import VideoList from "./VideoList";
 import VideoUploaded from "./VideoUploaded";
+import Loader from "./Loader.jsx";
+import ErrorPage from "./ErrorPage.jsx";
+import AuthLayout from "./AuthLayout.jsx";
 
 export {
     AddTweet,
@@ -53,5 +56,8 @@ export {
     Video,
     VideoCards,
     VideoList,
-    VideoUploaded
+    VideoUploaded,
+    Loader,
+    ErrorPage,
+    AuthLayout
 }

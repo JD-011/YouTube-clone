@@ -1,6 +1,4 @@
 import axios from "../axios/index.js";
-import {a} from "tailwindcss/dist/chunk-HTB5LLOP.mjs";
-import {act} from "react";
 
 export class VideoServices {
     async publishVideo(videoData){
@@ -48,7 +46,7 @@ export class VideoServices {
         }
     }
 
-    async getAllVideos(page, limit, query, sortBy, sortType, userId){
+    async getAllVideos(page = 1, limit = 12, query = "", sortBy = "createdAt", sortType = "desc", userId = "") {
         try {
             return (await axios.get("/videos", {
                 params: {
@@ -59,7 +57,7 @@ export class VideoServices {
                     sortType,
                     userId
                 }
-            }))
+            })).data
         } catch (err){
             console.error("services :: VideoServices :: getAllVideos :: error:")
             throw err
