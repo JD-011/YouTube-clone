@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Empty, VideoCards, Loader, ErrorPage } from "../components";
-import { videoServices, userServices } from "../services";
+import { videoServices } from "../services";
 import { PlayIcon } from "@heroicons/react/24/outline";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";

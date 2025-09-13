@@ -1,9 +1,12 @@
-import React from "react";
+import React, { use } from "react";
 import { MagnifyingGlassIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "./Logo.jsx";
 import { icons } from "./Icons.jsx";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../store/authSlice.js";
+import userServices from "../services/user.js";
 
 const navItems = [
     {
@@ -58,6 +61,8 @@ const navItems = [
 
 const Header = () => {
     const navigate = useNavigate();
+    const authStatus = useSelector((state) => state.auth.loggedIn);
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -107,15 +112,42 @@ const Header = () => {
                                 ))}
                         </ul>
                         <div className="mb-8 mt-auto flex w-full flex-wrap gap-4 px-4 sm:mb-0 sm:mt-0 sm:items-center sm:px-0">
-                            <button
-                                className="w-full bg-[#383737] px-3 py-2 hover:bg-[#4f4e4e] sm:w-auto sm:bg-transparent"
-                                onClick={() => navigate("/login")}
-                            >
-                                Log in
-                            </button>
-                            <button className="mr-1 w-full bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto">
-                                Sign up
-                            </button>
+                            {!authStatus ? (
+                                <>
+                                    <button
+                                        className="w-full px-4 py-2 font-medium text-[#ae7aff] border border-gray-600 rounded-lg 
+                                                   bg-transparent transition-all duration-200 ease-in-out
+                                                   hover:bg-gray-800 hover:border-gray-500 hover:scale-105
+                                                   active:scale-95 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900
+                                                   sm:w-auto"
+                                        onClick={() => navigate("/login")}
+                                    >
+                                        Login
+                                    </button>
+                                    <button
+                                        className="mr-1 w-full bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+                                        onClick={() => navigate("/signup")}
+                                    >
+                                        Sign up
+                                    </button>
+                                </>
+                            ) : (
+                                <button
+                                    onClick={() =>
+                                        userServices
+                                            .logout()
+                                            .then(() => dispatch(logout()))
+                                    }
+                                    className="px-5 py-2.5 font-semibold text-gray-100
+                                                bg-red-600 rounded-lg shadow-sm
+                                                transition-all duration-200 ease-in-out
+                                                hover:bg-red-700 hover:shadow-md hover:scale-[1.02]
+                                                active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800
+                                                cursor-pointer"
+                                >
+                                    Logout
+                                </button>
+                            )}
                         </div>
                     </div>
                 </nav>
