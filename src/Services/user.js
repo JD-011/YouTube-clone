@@ -1,4 +1,4 @@
-import axios from "../axios/index.js";
+import axios from "../axios";
 
 export class UserServices {
     async register(userData){
@@ -15,6 +15,24 @@ export class UserServices {
             return (await axios.post("/users/login", userData)).data
         } catch (err){
             console.error("services :: userServices :: login :: error:")
+            throw err
+        }
+    }
+
+    async googleRegister(tokenResponse){
+        try{
+            return (await axios.post("/users/google-register", tokenResponse)).data
+        } catch (err){
+            console.error("services :: userServices :: googleRegister :: error:")
+            throw err
+        }
+    }
+
+    async googleLogin(tokenResponse){
+        try{
+            return (await axios.post("/users/google-login", tokenResponse)).data
+        } catch (err){
+            console.error("services :: userServices :: googleLogin :: error:")
             throw err
         }
     }

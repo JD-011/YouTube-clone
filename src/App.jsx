@@ -16,8 +16,18 @@ function App() {
                 if (res?.data?.user) dispatch(login(res.data.user));
                 else dispatch(logout());
             } catch (err) {
-                console.error(err);
-                dispatch(logout());
+                if (err?.status === 401) {
+                    try {
+                        await userServices.refreshToken();
+                        const res = await userServices.getUser();
+                        if (res?.data?.user) dispatch(login(res.data.user));
+                        else dispatch(logout());
+                    } catch (e) {
+                        dispatch(logout());
+                    }
+                } else {
+                    dispatch(logout());
+                }
             }
         })();
     }, []);

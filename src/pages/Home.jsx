@@ -30,7 +30,7 @@ function Home() {
     } = useInfiniteQuery({
         queryKey: ["videos"],
         queryFn: fetchVideos,
-        refetchOnWindowFocus: true,
+        refetchOnWindowFocus: false,
         staleTime: 2 * 60 * 1000,
         refetchInterval: false,
         initialPageParam: 0,

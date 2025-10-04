@@ -1,4 +1,4 @@
-import conf from "../conf/index.js";
+import conf from "../conf";
 import axios from "axios";
 
 export default axios.create({

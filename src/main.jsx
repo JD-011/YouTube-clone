@@ -7,6 +7,8 @@ import { store } from "./store/store.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, Login, SignUp } from "./pages";
 import { Header, Sidebar, AuthLayout } from "./components";
+import { GoogleOAuthProvider} from "@react-oauth/google"
+import conf from "./conf";
 
 const router = createBrowserRouter([
     {
@@ -38,7 +40,7 @@ const router = createBrowserRouter([
                 )
             },
             {
-                path: "/signup",
+                path: "/register",
                 element: (
                     <AuthLayout authentication={false}>
                         <SignUp />
@@ -52,7 +54,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
     <StrictMode>
         <Provider store={store}>
-            <RouterProvider router={router} />
+            <GoogleOAuthProvider clientId={conf.googleClientId}>
+                <RouterProvider router={router} />
+            </GoogleOAuthProvider>
         </Provider>
     </StrictMode>
 );
