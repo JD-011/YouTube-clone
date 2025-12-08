@@ -2,7 +2,6 @@ import React, { use } from "react";
 import { MagnifyingGlassIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "./Logo.jsx";
 import { icons } from "./Icons.jsx";
-import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/authSlice.js";
@@ -59,7 +58,7 @@ const navItems = [
     },
 ];
 
-const Header = () => {
+const Header = ({ children }) => {
     const navigate = useNavigate();
     const authStatus = useSelector((state) => state.auth.loggedIn);
     const dispatch = useDispatch();
@@ -152,7 +151,7 @@ const Header = () => {
                     </div>
                 </nav>
             </header>
-            <Outlet />
+            { children }
         </>
     );
 };

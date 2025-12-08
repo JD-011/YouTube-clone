@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Empty, VideoCards, Loader, ErrorPage } from "../components";
+import { Empty, VideoCards, Loader, ErrorPage, Header, Sidebar } from "../components";
 import { videoServices } from "../services";
 import { PlayIcon } from "@heroicons/react/24/outline";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -47,44 +47,60 @@ function Home() {
 
     if (isPending)
         return (
-            <div className="flex h-full items-center justify-center">
-                <Loader size="md" message="Loading awesome videos..." />
-            </div>
+            <Header>
+                <Sidebar variant="sticky">
+                    <div className="flex h-full items-center justify-center">
+                        <Loader size="md" message="Loading awesome videos..." />
+                    </div>
+                </Sidebar>
+            </Header>
         );
 
     if (error)
         return (
-            <div className="flex h-full items-center justify-center">
-                <ErrorPage
-                    title="Oops! Something went wrong!"
-                    message="We couldn't load the videos right now. Please check your connection and try again."
-                    onRetry={() => refetch()}
-                    onGoHome={() => window.location.reload()}
-                />
-            </div>
+            <Header>
+                <Sidebar variant="sticky">
+                    <div className="flex h-full items-center justify-center">
+                        <ErrorPage
+                            title="Oops! Something went wrong!"
+                            message="We couldn't load the videos right now. Please check your connection and try again."
+                            onRetry={() => refetch()}
+                            onGoHome={() => window.location.reload()}
+                        />
+                    </div>
+                </Sidebar>
+            </Header>
         );
 
     if (data.pages[0].docs.length == 0)
         return (
-            <div className="flex h-full items-center justify-center">
-                <Empty
-                    message="No videos available"
-                    description="There are no videos here available. Please try to search some thing else."
-                    Icon={PlayIcon}
-                />
-            </div>
+            <Header>
+                <Sidebar variant="sticky">
+                    <div className="flex h-full items-center justify-center">
+                        <Empty
+                            message="No videos available"
+                            description="There are no videos here available. Please try to search some thing else."
+                            Icon={PlayIcon}
+                        />
+                    </div>
+                </Sidebar>
+            </Header>
         );
 
     return (
-        <div className="w-full"> 
-            <VideoCards data={data} />
-            <div 
-                ref={ref} 
-                className="w-full flex justify-center py-1"
-            >
-                {isFetchingNextPage && <Loader size="sm" message="Loading more videos..." />}
-            </div>
-        </div>
+        <Header>
+            <Sidebar variant="sticky">
+                <div className="w-full"> 
+                    <VideoCards data={data} />
+                    <div 
+                        ref={ref} 
+                        className="w-full flex justify-center py-1"
+                    >
+                        {isFetchingNextPage && <Loader size="sm" message="Loading more videos..." />}
+                    </div>
+                </div>
+            </Sidebar>
+        </Header>
     )
 }
 

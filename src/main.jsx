@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, Login, SignUp } from "./pages";
-import { Header, Sidebar, AuthLayout } from "./components";
+import { AuthLayout } from "./components";
 import { GoogleOAuthProvider} from "@react-oauth/google"
 import conf from "./conf";
 
@@ -17,19 +17,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Header />,
-                children: [
-                    {
-                        path: "/",
-                        element: <Sidebar variant="sticky" />,
-                        children: [
-                            {
-                                path: "/",
-                                element: <Home />
-                            },
-                        ],
-                    },
-                ],
+                element: <Home />,
             },
             {
                 path: "/login",

@@ -1,6 +1,5 @@
 import React from "react";
 import { icons } from "./Icons.jsx";
-import { Outlet } from "react-router-dom";
 
 const navItems = [
     {
@@ -14,12 +13,12 @@ const navItems = [
         icon: icons.myContent,
     },
     {
-        name: "subscrisptions",
+        name: "Subscrisptions",
         mobileView: true,
         icon: icons.subscribers,
     },
     {
-        name: "playlists",
+        name: "Playlists",
         mobileView: true,
         icon: icons.collections,
     },
@@ -45,7 +44,7 @@ const navItems = [
     },
 ];
 
-const Sidebar = ({ variant } = "hover", bottomTotalItems = 2) => {
+const Sidebar = ({ children, variant } = "hover", bottomTotalItems = 2) => {
     const isSticky = variant === "sticky";
 
     const sidebarClasses = `
@@ -90,7 +89,7 @@ const Sidebar = ({ variant } = "hover", bottomTotalItems = 2) => {
                     </ul>
                 </aside>
                 <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
-                    <Outlet />
+                    { children }
                 </section>
             </div>
         </>
