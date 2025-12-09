@@ -5,7 +5,7 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store/store.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home, Login, SignUp } from "./pages";
+import { Home, Login, SignUp, Video } from "./pages";
 import { AuthLayout } from "./components";
 import { GoogleOAuthProvider} from "@react-oauth/google"
 import conf from "./conf";
@@ -34,7 +34,11 @@ const router = createBrowserRouter([
                         <SignUp />
                     </AuthLayout>
                 )
-            }
+            },
+            {
+                path: "/video/:videoId",
+                element: <Video />,
+            },
         ],
     },
 ]);

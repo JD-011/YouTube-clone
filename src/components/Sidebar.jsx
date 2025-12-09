@@ -1,50 +1,60 @@
 import React from "react";
 import { icons } from "./Icons.jsx";
+import { useNavigate } from "react-router-dom";
 
 const navItems = [
     {
         name: "Home",
+        path: "/",
         mobileView: true,
         icon: icons.home,
     },
     {
         name: "Your videos",
+        path: "/",
         mobileView: false,
         icon: icons.myContent,
     },
     {
         name: "Subscrisptions",
+        path: "/",
         mobileView: true,
         icon: icons.subscribers,
     },
     {
         name: "Playlists",
+        path: "/",
         mobileView: true,
         icon: icons.collections,
     },
     {
         name: "Liked Videos",
+        path: "/",
         mobileView: false,
         icon: icons.like,
     },
     {
         name: "History",
+        path: "/",
         mobileView: true,
         icon: icons.history,
     },
     {
         name: "Support",
+        path: "/",
         mobileView: false,
         icon: icons.support,
     },
     {
         name: "Settings",
+        path: "/",
         mobileView: false,
         icon: icons.settings,
     },
 ];
 
 const Sidebar = ({ children, variant } = "hover", bottomTotalItems = 2) => {
+    const navigate = useNavigate();
     const isSticky = variant === "sticky";
 
     const sidebarClasses = `
@@ -76,7 +86,10 @@ const Sidebar = ({ children, variant } = "hover", bottomTotalItems = 2) => {
                                 }
                             `}
                             >
-                                <button className="flex flex-col items-center justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
+                                <button 
+                                    className="flex flex-col items-center justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4"
+                                    onClick={() => navigate(item.path)}
+                                >
                                     <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
                                         {item.icon}
                                     </span>
@@ -88,9 +101,7 @@ const Sidebar = ({ children, variant } = "hover", bottomTotalItems = 2) => {
                         ))}
                     </ul>
                 </aside>
-                <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
-                    { children }
-                </section>
+                { children }
             </div>
         </>
     );

@@ -49,9 +49,11 @@ function Home() {
         return (
             <Header>
                 <Sidebar variant="sticky">
-                    <div className="flex h-full items-center justify-center">
-                        <Loader size="md" message="Loading awesome videos..." />
-                    </div>
+                    <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+                        <div className="flex h-full items-center justify-center">
+                            <Loader size="md" message="Loading awesome videos..." />
+                        </div>
+                    </section>
                 </Sidebar>
             </Header>
         );
@@ -60,14 +62,16 @@ function Home() {
         return (
             <Header>
                 <Sidebar variant="sticky">
-                    <div className="flex h-full items-center justify-center">
-                        <ErrorPage
-                            title="Oops! Something went wrong!"
-                            message="We couldn't load the videos right now. Please check your connection and try again."
-                            onRetry={() => refetch()}
-                            onGoHome={() => window.location.reload()}
-                        />
-                    </div>
+                    <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+                        <div className="flex h-full items-center justify-center">
+                            <ErrorPage
+                                title="Oops! Something went wrong!"
+                                message="We couldn't load the videos right now. Please check your connection and try again."
+                                onRetry={() => refetch()}
+                                onGoHome={() => window.location.reload()}
+                            />
+                        </div>    
+                    </section>             
                 </Sidebar>
             </Header>
         );
@@ -76,13 +80,15 @@ function Home() {
         return (
             <Header>
                 <Sidebar variant="sticky">
-                    <div className="flex h-full items-center justify-center">
-                        <Empty
-                            message="No videos available"
-                            description="There are no videos here available. Please try to search some thing else."
-                            Icon={PlayIcon}
-                        />
-                    </div>
+                    <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+                        <div className="flex h-full items-center justify-center">
+                            <Empty
+                                message="No videos available"
+                                description="There are no videos available here."
+                                Icon={PlayIcon}
+                            />
+                        </div>
+                    </section>
                 </Sidebar>
             </Header>
         );
@@ -90,15 +96,17 @@ function Home() {
     return (
         <Header>
             <Sidebar variant="sticky">
-                <div className="w-full"> 
-                    <VideoCards data={data} />
-                    <div 
-                        ref={ref} 
-                        className="w-full flex justify-center py-1"
-                    >
-                        {isFetchingNextPage && <Loader size="sm" message="Loading more videos..." />}
+                <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+                    <div className="w-full">
+                        <VideoCards data={data} />
+                        <div 
+                            ref={ref} 
+                            className="w-full flex justify-center py-1"
+                        >
+                            {isFetchingNextPage && <Loader size="sm" message="Loading more videos..." />}
+                        </div>
                     </div>
-                </div>
+                </section>   
             </Sidebar>
         </Header>
     )
