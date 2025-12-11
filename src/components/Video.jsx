@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
     CheckIcon,
     FolderPlusIcon,
@@ -130,8 +131,10 @@ const Video = ({ videoDetails, videos }) => {
     },
   ]
     
+    const navigate = useNavigate();
+
     return (
-        <div className="flex flex-wrap gap-4 p-5 lg:flex-nowrap ml-17">
+        <div className="flex w-full flex-wrap gap-4 p-5 lg:flex-nowrap">
             <div className="col-span-12 w-full">
                 <div className="relative mb-4 w-full pt-[56%]">
                     <div className="absolute inset-0">
@@ -380,11 +383,12 @@ const Video = ({ videoDetails, videos }) => {
                         >
                             <div className="relative mb-2 w-full md:mb-0 md:w-5/12">
                                 <div className="w-full pt-[56%]">
-                                    <div className="absolute inset-0">
+                                    <div className="absolute inset-0 cursor-pointer">
                                         <img
                                             src={video.thumbnail}
                                             alt={video.title}
                                             className="h-full w-full"
+                                            onClick={() => navigate(`/video/${video._id}`)}
                                         />
                                     </div>
                                     <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">

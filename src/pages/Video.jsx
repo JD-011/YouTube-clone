@@ -14,6 +14,7 @@ const Video = () => {
     useEffect(() => {
         (async() => {
             try {
+                setLoading(true);
                 const videoData = await videoServices.getVideo(videoId);
                 if(videoData?.data) setVideoDetails(videoData.data)
                 const videosData = await videoServices.getAllVideos();
@@ -30,7 +31,7 @@ const Video = () => {
         return (
             <Header>
                 <Sidebar variant="hover">
-                    <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+                    <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0">
                         <div className="flex h-full items-center justify-center">
                             <Loader size="md" message="Loading the video..." />
                         </div>
@@ -53,7 +54,7 @@ const Video = () => {
         return (
             <Header>
                 <Sidebar variant="hover">
-                    <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+                    <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0">
                         <div className="flex h-full items-center justify-center">
                             <ErrorPage
                                 title={title}
@@ -61,7 +62,7 @@ const Video = () => {
                                 onRetry={() => window.location.reload()}
                                 onGoHome={() => navigate("/")}
                             />
-                        </div>    
+                        </div>
                     </section>             
                 </Sidebar>
             </Header>
@@ -71,7 +72,7 @@ const Video = () => {
     return (
         <Header>
             <Sidebar variant="hover">
-                <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+                <section className="w-full pb-[70px] sm:ml-[70px] sm:pb-0">
                     <VideoComponent videoDetails={videoDetails} videos={videos} />
                 </section>   
             </Sidebar>
