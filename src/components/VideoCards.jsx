@@ -1,51 +1,9 @@
-import React from "react";
+import React, { use } from "react";
 import { useNavigate } from "react-router-dom";
+import { useFormatDuration, useFormatTime, useFormatNumber } from "../hooks";
 
 const VideoCards = ({ data }) => {
     const navigate = useNavigate();
-
-    const formatDuration = (seconds) => {
-        const totalSeconds = Math.floor(seconds);
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const remainingSeconds = totalSeconds % 60;
-
-        if (hours > 0) {
-            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-        } else {
-            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-        }
-    };
-
-    const formatTimeAgo = (createdAt) => {
-        const now = new Date();
-        const uploadTime = new Date(createdAt);
-        const diffInMs = now - uploadTime;
-        
-        const diffInSeconds = Math.floor(diffInMs / 1000);
-        const diffInMinutes = Math.floor(diffInSeconds / 60);
-        const diffInHours = Math.floor(diffInMinutes / 60);
-        const diffInDays = Math.floor(diffInHours / 24);
-        const diffInWeeks = Math.floor(diffInDays / 7);
-        const diffInMonths = Math.floor(diffInDays / 30);
-        const diffInYears = Math.floor(diffInDays / 365);
-
-        if (diffInYears > 0) {
-            return `${diffInYears} year${diffInYears > 1 ? 's' : ''} ago`;
-        } else if (diffInMonths > 0) {
-            return `${diffInMonths} month${diffInMonths > 1 ? 's' : ''} ago`;
-        } else if (diffInWeeks > 0) {
-            return `${diffInWeeks} week${diffInWeeks > 1 ? 's' : ''} ago`;
-        } else if (diffInDays > 0) {
-            return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
-        } else if (diffInHours > 0) {
-            return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
-        } else if (diffInMinutes > 0) {
-            return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
-        } else {
-            return 'Just now';
-        }
-    };
 
     return (
         <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 p-4">
@@ -62,7 +20,7 @@ const VideoCards = ({ data }) => {
                                 />
                             </div>
                             <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
-                                {formatDuration(video.duration)}
+                                {useFormatDuration(video.duration)}
                             </span>
                         </div>
                         <div className="flex gap-x-2">
@@ -78,8 +36,8 @@ const VideoCards = ({ data }) => {
                                     {video.title}
                                 </h6>
                                 <p className="flex text-sm text-gray-200">
-                                    {video.views}&nbsp;Views &middot;{" "}
-                                    {formatTimeAgo(video.createdAt)}
+                                    {useFormatNumber(video.views)}&nbsp;Views &middot;{" "}
+                                    {useFormatTime(video.createdAt)}
                                 </p>
                                 <p className="text-sm font-bold text-gray-200">
                                     {video.owner.fullName}

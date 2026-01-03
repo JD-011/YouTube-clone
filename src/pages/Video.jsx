@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Video as VideoComponent, Header, Sidebar, ErrorPage, Loader } from "../components";
 import { videoServices } from "../services";
+import { useSelector } from "react-redux";
 
 const Video = () => {
     const { videoId } = useParams();
+    const { userData } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const [videoDetails, setVideoDetails] = useState(null);
     const [videos, setVideos] = useState([]);
@@ -15,7 +17,7 @@ const Video = () => {
         (async() => {
             try {
                 setLoading(true);
-                const videoData = await videoServices.getVideo(videoId);
+                const videoData = await videoServices.getVideo(videoId, userData?._id);
                 if(videoData?.data) setVideoDetails(videoData.data)
                 const videosData = await videoServices.getAllVideos();
                 if(videosData?.data?.docs) setVideos(videosData.data.docs);

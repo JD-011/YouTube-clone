@@ -1,137 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useFormatDuration, useFormatTime, useFormatNumber } from "../hooks";
 import {
-    CheckIcon,
-    FolderPlusIcon,
     HandThumbDownIcon,
     HandThumbUpIcon,
     UserPlusIcon,
 } from "@heroicons/react/24/outline";
+import { likeServices, dislikeServices, subscriptionServices, commentServices } from "../services";
+import { useSelector } from "react-redux";
 
 const Video = ({ videoDetails, videos }) => {
-    videoDetails.videoType = "video/mp4";
-    videoDetails.likeCount = 3050;
-    videoDetails.dislikeCount = 20;
-    videoDetails.commentCount = 573;
-    videoDetails.liked = false;
-    videoDetails.disliked = false;
-    videoDetails.owner.subscribers = "757K";
-    videoDetails.comments = [
-    {
-      id: "1",
-      video: "1",
-      content:
-        "This series is exactly what I've been looking for! Excited to dive into these advanced React patterns. Thanks for putting this together!",
-      createdAt: "17 hour ago",
-      owner: {
-        id: "25",
-        username: "sarahjv",
-        fullName: "Sarah Johnson",
-        avatar:
-          "https://images.pexels.com/photos/18148932/pexels-photo-18148932/free-photo-of-woman-reading-book-on-a-bench.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      },
-    },
-    {
-      id: "2",
-      video: "1",
-      content:
-        "Render props have always been a bit tricky for me. Can't wait to see how this series breaks it down. Thanks for sharing!",
-      createdAt: "5 minutes ago",
-      owner: {
-        id: "25",
-        username: "mikerod",
-        fullName: "Michael Rodriguez",
-        avatar:
-          "https://images.pexels.com/photos/18107025/pexels-photo-18107025/free-photo-of-man-reading-newspaper.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      },
-    },
-    {
-      id: "3",
-      video: "1",
-      content:
-        "Higher-order components have been a mystery to me for far too long. Looking forward to demystifying them with this series. Thanks!",
-      createdAt: "1 hour ago",
-      owner: {
-        id: "25",
-        username: "emilyt",
-        fullName: "Emily Turner",
-        avatar:
-          "https://images.pexels.com/photos/18096595/pexels-photo-18096595/free-photo-of-music-on-street.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      },
-    },
-    {
-      id: "4",
-      video: "1",
-      content:
-        "Compound components are a game-changer for UI development. Can't wait to learn more about them. Great work on this series!",
-      createdAt: "3 hour ago",
-      owner: {
-        id: "25",
-        username: "davidc",
-        fullName: "David Chen",
-        avatar:
-          "https://images.pexels.com/photos/18094275/pexels-photo-18094275.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      },
-    },
-    {
-      id: "5",
-      video: "1",
-      content:
-        "Controlled vs. uncontrolled components - finally! This topic has always confused me. Thanks for breaking it down!",
-      createdAt: "12 hour ago",
-      owner: {
-        id: "25",
-        username: "alex_p",
-        fullName: "Alex Parker",
-        avatar:
-          "https://images.pexels.com/photos/13847596/pexels-photo-13847596.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      },
-    },
-    {
-      id: "6",
-      video: "1",
-      content:
-        "This series is a goldmine for React developers! Compound components are something I've been eager to master. Thanks for this!",
-      createdAt: "5 hour ago",
-      owner: {
-        id: "25",
-        username: "jessicalee",
-        fullName: "Jessica Lee",
-        avatar:
-          "https://images.pexels.com/photos/7775637/pexels-photo-7775637.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      },
-    },
-    {
-      id: "7",
-      video: "1",
-      content:
-        "This is exactly what I needed to take my React skills to the next level. Looking forward to diving into the render props section!",
-      createdAt: "Just now",
-      owner: {
-        id: "25",
-        username: "ryanjax",
-        fullName: "Ryan Jackson",
-        avatar:
-          "https://images.pexels.com/photos/3532545/pexels-photo-3532545.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      },
-    },
-    {
-      id: "8",
-      video: "1",
-      content:
-        "This series looks amazing! I'm especially excited to learn more about controlled vs. uncontrolled components. Thanks for sharing!",
-      createdAt: "1 minutes ago",
-      owner: {
-        id: "25",
-        username: "lauraw",
-        fullName: "Laura Williams",
-        avatar:
-          "https://images.pexels.com/photos/3532552/pexels-photo-3532552.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      },
-    },
-  ]
-    
     const navigate = useNavigate();
+    const { loggedIn, userData } = useSelector((state) => state.auth);
+    const [state, setState] = React.useState(false);
 
     return (
         <div className="flex w-full flex-wrap gap-4 p-5 lg:flex-nowrap">
@@ -146,7 +27,7 @@ const Video = ({ videoDetails, videos }) => {
                         >
                             <source
                                 src={videoDetails.videoFile}
-                                type= {videoDetails.videoType}
+                                type="video/mp4"
                             />
                         </video>
                     </div>
@@ -162,124 +43,82 @@ const Video = ({ videoDetails, videos }) => {
                                 {videoDetails.title}
                             </h1>
                             <p className="flex text-sm text-gray-200">
-                                {videoDetails.views}&nbsp;Views &middot;
-                                {videoDetails.createdAt}
+                                {videoDetails.views.toLocaleString("en-US")}
+                                &nbsp;Views &middot;{" "}
+                                {useFormatTime(videoDetails.createdAt)}
                             </p>
                         </div>
                         <div className="w-full md:w-1/2 lg:w-full xl:w-1/2">
                             <div className="flex items-center justify-between gap-x-4 md:justify-end lg:justify-between xl:justify-end">
                                 <div className="flex overflow-hidden rounded-lg border">
                                     <button
-                                        className="group/btn flex items-center gap-x-2 border-r border-gray-700 px-4 py-1.5 after:content-[attr(data-like)] hover:bg-white/10 focus:after:content-[attr(data-like-alt)]"
-                                        data-like={videoDetails.likeCount}
-                                        data-like-alt={
-                                            videoDetails.liked
-                                                ? videoDetails.likeCount - 1
-                                                : videoDetails.likeCount + 1
-                                        }
+                                        className="flex items-center gap-x-2 border-r border-gray-700 px-4 py-1.5 hover:bg-white/10"
+                                        onClick={async () => {
+                                            if (!loggedIn) {
+                                                navigate("/login");
+                                                return;
+                                            }
+                                            await likeServices.ToggleVideoLike(
+                                                videoDetails._id
+                                            );
+                                            if (videoDetails.liked) {
+                                                videoDetails.likeCount--;
+                                                videoDetails.liked = false;
+                                            } else {
+                                                videoDetails.likeCount++;
+                                                videoDetails.liked = true;
+                                                if (videoDetails.disliked) {
+                                                    videoDetails.dislikeCount--;
+                                                    videoDetails.disliked = false;
+                                                }
+                                            }
+                                            setState((prev) => !prev);
+                                        }}
                                     >
                                         <span
                                             className={`inline-block w-5 ${
-                                                videoDetails.liked
-                                                    ? "text-[#ae7aff] group-focus/btn:text-inherit"
-                                                    : "group-focus/btn:text-[#ae7aff]"
+                                                videoDetails.liked &&
+                                                "text-[#ae7aff]"
                                             }`}
                                         >
                                             <HandThumbUpIcon />
                                         </span>
+                                        {videoDetails.likeCount}
                                     </button>
                                     <button
-                                        className="group/btn flex items-center gap-x-2 px-4 py-1.5 after:content-[attr(data-like)] hover:bg-white/10 focus:after:content-[attr(data-like-alt)]"
-                                        data-like={
-                                            videoDetails.dislikeCount
-                                        }
-                                        data-like-alt={
-                                            videoDetails.disliked
-                                                ? videoDetails.dislikeCount -
-                                                    1
-                                                : videoDetails.dislikeCount +
-                                                    1
-                                        }
+                                        className="flex items-center gap-x-2 px-4 py-1.5 hover:bg-white/10"
+                                        onClick={async () => {
+                                            if (!loggedIn) {
+                                                navigate("/login");
+                                                return;
+                                            }
+                                            await dislikeServices.ToggleVideoDislike(
+                                                videoDetails._id
+                                            );
+                                            if (videoDetails.disliked) {
+                                                videoDetails.dislikeCount--;
+                                                videoDetails.disliked = false;
+                                            } else {
+                                                videoDetails.dislikeCount++;
+                                                videoDetails.disliked = true;
+                                                if (videoDetails.liked) {
+                                                    videoDetails.likeCount--;
+                                                    videoDetails.liked = false;
+                                                }
+                                            }
+                                            setState((prev) => !prev);
+                                        }}
                                     >
                                         <span
                                             className={`inline-block w-5 ${
-                                                videoDetails.disliked
-                                                    ? "text-[#ae7aff] group-focus/btn:text-inherit"
-                                                    : "group-focus/btn:text-[#ae7aff]"
+                                                videoDetails.disliked &&
+                                                "text-[#ae7aff]"
                                             }`}
                                         >
                                             <HandThumbDownIcon />
                                         </span>
+                                        {videoDetails.dislikeCount}
                                     </button>
-                                </div>
-                                <div className="relative block">
-                                    <button className="peer flex items-center gap-x-2 rounded-lg bg-white px-4 py-1.5 text-black">
-                                        <span className="inline-block w-5">
-                                            <FolderPlusIcon />
-                                        </span>
-                                        Save
-                                    </button>
-                                    <div className="absolute right-0 top-full z-10 hidden w-64 overflow-hidden rounded-lg bg-[#121212] p-4 shadow shadow-slate-50/30 hover:block peer-focus:block">
-                                        <h3 className="mb-4 text-center text-lg font-semibold">
-                                            Save to playlist
-                                        </h3>
-                                        <ul className="mb-4">
-                                            {[
-                                                "Collections",
-                                                "JavaScript Basics",
-                                                "C++ Tuts",
-                                                "Feel Good Music",
-                                                "Ed Sheeran",
-                                                "Python",
-                                            ].map((playlistName) => (
-                                                <li
-                                                    key={playlistName}
-                                                    className="mb-2 last:mb-0"
-                                                >
-                                                    <label
-                                                        className="group/label inline-flex cursor-pointer items-center gap-x-3"
-                                                        htmlFor={
-                                                            playlistName +
-                                                            "-checkbox"
-                                                        }
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            className="peer hidden"
-                                                            id={
-                                                                playlistName +
-                                                                "-checkbox"
-                                                            }
-                                                        />
-                                                        <span className="inline-flex h-4 w-4 items-center justify-center rounded-[4px] border border-transparent bg-white text-white group-hover/label:border-[#ae7aff] peer-checked:border-[#ae7aff] peer-checked:text-[#ae7aff]">
-                                                            <CheckIcon
-                                                                strokeWidth={
-                                                                    3
-                                                                }
-                                                            />
-                                                        </span>
-                                                        {playlistName}
-                                                    </label>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        <div className="flex flex-col">
-                                            <label
-                                                htmlFor="playlist-name"
-                                                className="mb-1 inline-block cursor-pointer"
-                                            >
-                                                Name
-                                            </label>
-                                            <input
-                                                className="w-full rounded-lg border border-transparent bg-white px-3 py-2 text-black outline-none focus:border-[#ae7aff]"
-                                                id="playlist-name"
-                                                placeholder="Enter playlist name"
-                                            />
-                                            <button className="mx-auto mt-4 rounded-lg bg-[#ae7aff] px-4 py-2 text-black">
-                                                Create new playlist
-                                            </button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -298,30 +137,39 @@ const Video = ({ videoDetails, videos }) => {
                                     {videoDetails.owner.fullName}
                                 </p>
                                 <p className="text-sm text-gray-400">
-                                    {videoDetails.owner.subscribers}{" "}
+                                    {useFormatNumber(
+                                        videoDetails.owner.subscribers
+                                    )}{" "}
                                     Subscribers
                                 </p>
                             </div>
                         </div>
                         <div className="block">
-                            <button className="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto">
+                            <button
+                                className="mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+                                onClick={async () => {
+                                    if (!loggedIn) {
+                                        navigate("/login");
+                                        return;
+                                    }
+                                    await subscriptionServices.toggleSubscription(videoDetails.owner._id);
+                                    if (videoDetails.owner.subscribed) videoDetails.owner.subscribed = false;
+                                    else videoDetails.owner.subscribed = true;
+                                    setState((prev) => !prev);
+                                }}
+                            >
                                 <span className="inline-block w-5">
                                     <UserPlusIcon strokeWidth={2} />
                                 </span>
-                                <span className="group-focus/btn:hidden">
-                                    Subscribe
-                                </span>
-                                <span className="hidden group-focus/btn:block">
-                                    Subscribed
-                                </span>
+                                {videoDetails.owner.subscribed
+                                    ? "Subscribed"
+                                    : "Subscribe"}
                             </button>
                         </div>
                     </div>
                     <hr className="my-4 border-white" />
                     <div className="h-5 overflow-hidden group-focus:h-auto">
-                        <p className="text-sm">
-                            {videoDetails.description}
-                        </p>
+                        <p className="text-sm">{videoDetails.description}</p>
                     </div>
                 </div>
                 <button className="peer w-full rounded-lg border p-4 text-left duration-200 hover:bg-white/5 focus:bg-white/5 sm:hidden">
@@ -338,11 +186,37 @@ const Video = ({ videoDetails, videos }) => {
                             type="text"
                             className="w-full rounded-lg border bg-transparent px-2 py-1 placeholder-white"
                             placeholder="Add a Comment"
+                            onKeyDown={async(e) => {
+                                if(e.key !== "Enter") return;
+                                if(!loggedIn){
+                                    navigate("/login");
+                                    return;
+                                }
+                                const comment = await commentServices.addComment(videoDetails._id, {content: e.target.value});
+                                const newComment = {
+                                    _id: comment.data._id,
+                                    content: e.target.value,
+                                    likeCount: 0,
+                                    dislikeCount: 0,
+                                    liked: false,
+                                    disliked: false,
+                                    owner: {
+                                        fullName: userData.fullName,
+                                        username: userData.username,
+                                        avatar: userData.avatar,
+                                    },
+                                    createdAt: new Date().toISOString(),
+                                }
+                                e.target.value = "";
+                                videoDetails.commentCount++;
+                                videoDetails.comments.unshift(newComment);
+                                setState((prev) => !prev);
+                            }}
                         />
                     </div>
                     <hr className="my-4 border-white" />
                     {videoDetails.comments.map((comment) => (
-                        <div key={comment.id}>
+                        <div key={comment._id}>
                             <div className="flex gap-x-4">
                                 <div className="mt-2 h-11 w-11 shrink-0">
                                     <img
@@ -356,7 +230,7 @@ const Video = ({ videoDetails, videos }) => {
                                         {comment.owner.fullName}
                                         &nbsp;&middot;&nbsp;
                                         <span className="text-sm">
-                                            {comment.createdAt}
+                                            {useFormatTime(comment.createdAt)}
                                         </span>
                                     </p>
                                     <p className="text-sm text-gray-200">
@@ -365,6 +239,76 @@ const Video = ({ videoDetails, videos }) => {
                                     <p className="mt-3 text-sm">
                                         {comment.content}
                                     </p>
+                                    <div className="flex gap-4 mt-3">
+                                        <button
+                                            className={`inline-flex items-center gap-x-2 outline-none`}
+                                            onClick={async () => {
+                                                if (!loggedIn) {
+                                                    navigate("/login");
+                                                    return;
+                                                }
+                                                await likeServices.ToggleCommentLike(
+                                                    comment._id
+                                                );
+                                                if (comment.liked) {
+                                                    comment.likeCount--;
+                                                    comment.liked = false;
+                                                } else {
+                                                    comment.likeCount++;
+                                                    comment.liked = true;
+                                                    if (comment.disliked) {
+                                                        comment.dislikeCount--;
+                                                        comment.disliked = false;
+                                                    }
+                                                }
+                                                setState((prev) => !prev);
+                                            }}
+                                        >
+                                            <span
+                                                className={`inline-block w-5 ${
+                                                    comment.liked &&
+                                                    "text-[#ae7aff]"
+                                                }`}
+                                            >
+                                                <HandThumbUpIcon />
+                                            </span>
+                                            {comment.likeCount}
+                                        </button>
+                                        <button
+                                            className={`inline-flex items-center gap-x-2 outline-none`}
+                                            onClick={async () => {
+                                                if (!loggedIn) {
+                                                    navigate("/login");
+                                                    return;
+                                                }
+                                                await dislikeServices.ToggleCommentDislike(
+                                                    comment._id
+                                                );
+                                                if (comment.disliked) {
+                                                    comment.dislikeCount--;
+                                                    comment.disliked = false;
+                                                } else {
+                                                    comment.dislikeCount++;
+                                                    comment.disliked = true;
+                                                    if (comment.liked) {
+                                                        comment.likeCount--;
+                                                        comment.liked = false;
+                                                    }
+                                                }
+                                                setState((prev) => !prev);
+                                            }}
+                                        >
+                                            <span
+                                                className={`inline-block w-5 ${
+                                                    comment.disliked &&
+                                                    "text-[#ae7aff]"
+                                                }`}
+                                            >
+                                                <HandThumbDownIcon />
+                                            </span>
+                                            {comment.dislikeCount}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -378,7 +322,7 @@ const Video = ({ videoDetails, videos }) => {
                     .filter((video) => video.isPublished)
                     .map((video) => (
                         <div
-                            key={video.id}
+                            key={video._id}
                             className="w-full gap-x-2 border pr-2 md:flex"
                         >
                             <div className="relative mb-2 w-full md:mb-0 md:w-5/12">
@@ -388,11 +332,13 @@ const Video = ({ videoDetails, videos }) => {
                                             src={video.thumbnail}
                                             alt={video.title}
                                             className="h-full w-full"
-                                            onClick={() => navigate(`/video/${video._id}`)}
+                                            onClick={() =>
+                                                navigate(`/video/${video._id}`)
+                                            }
                                         />
                                     </div>
                                     <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
-                                        {video.duration}
+                                        {useFormatDuration(video.duration)}
                                     </span>
                                 </div>
                             </div>
@@ -408,12 +354,13 @@ const Video = ({ videoDetails, videos }) => {
                                     <h6 className="mb-1 text-sm font-semibold">
                                         {video.title}
                                     </h6>
-                                    <p className="mb-0.5 mt-2 text-sm text-gray-200">
+                                    <p className="mb-0.5 mt-2 text-sm text-gray-200 font-semibold">
                                         {video.owner.fullName}
                                     </p>
                                     <p className="flex text-sm text-gray-200">
-                                        {video.views}&nbsp;Views &middot;{" "}
-                                        {video.time}
+                                        {useFormatNumber(video.views)}
+                                        &nbsp;Views &middot;{" "}
+                                        {useFormatTime(video.createdAt)}
                                     </p>
                                 </div>
                             </div>

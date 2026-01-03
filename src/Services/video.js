@@ -10,9 +10,13 @@ export class VideoServices {
         }
     }
 
-    async getVideo(videoId){
+    async getVideo(videoId, userId){
         try{
-            return (await  axios.get(`/videos/${videoId}`)).data
+            return (await  axios.get(`/videos/${videoId}`, {
+                params: {
+                    userId
+                }
+            })).data
         }catch (err){
             console.error("services :: VideoServices :: getVideo :: error:")
             throw err
