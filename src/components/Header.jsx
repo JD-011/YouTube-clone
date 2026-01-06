@@ -34,7 +34,7 @@ const navItems = [
     },
     {
         name: "Liked Videos",
-        slug: "/",
+        slug: "/liked-videos",
         mobileView: false,
         icon: icons.like,
     },
