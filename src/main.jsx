@@ -5,9 +5,9 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store/store.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home, Login, SignUp, Video, LikedVideos } from "./pages";
+import { Home, Login, SignUp, Video, LikedVideos, History } from "./pages";
 import { AuthLayout } from "./components";
-import { GoogleOAuthProvider} from "@react-oauth/google"
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import conf from "./conf";
 
 const router = createBrowserRouter([
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
                     <AuthLayout authentication={false}>
                         <Login />
                     </AuthLayout>
-                )
+                ),
             },
             {
                 path: "/register",
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
                     <AuthLayout authentication={false}>
                         <SignUp />
                     </AuthLayout>
-                )
+                ),
             },
             {
                 path: "/video/:videoId",
@@ -41,7 +41,19 @@ const router = createBrowserRouter([
             },
             {
                 path: "/liked-videos",
-                element: <LikedVideos />,
+                element: (
+                    <AuthLayout authentication={true}>
+                        <LikedVideos />
+                    </AuthLayout>
+                ),
+            },
+            {
+                path: "/history",
+                element: (
+                    <AuthLayout authentication={true}>
+                        <History />
+                    </AuthLayout>
+                ),
             }
         ],
     },

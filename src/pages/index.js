@@ -3,6 +3,7 @@ import Login from "./Login"
 import SignUp from "./SignUp"
 import Video from "./Video"
 import LikedVideos from "./LikedVideos"
+import History from "./History"
 
 
 export {
@@ -10,5 +11,6 @@ export {
   Login,
   SignUp,
   Video,
-  LikedVideos
+  LikedVideos,
+  History
 }

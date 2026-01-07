@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Empty, VideoList, Loader, ErrorPage, Header, Sidebar } from "../components";
-import { likeServices } from "../services";
+import { userServices } from "../services";
 import { PlayIcon } from "@heroicons/react/24/outline";
 
-function LikedVideos() {
+function History() {
     const navigate = useNavigate();
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,8 +14,8 @@ function LikedVideos() {
         (async() => {
             try {
                 setLoading(true);
-                const res = await likeServices.getLikedVideos();                
-                if(res?.data) setVideos(res.data)
+                const res = await userServices.getWatchHistory();                
+                if(res?.data?.watchHistory) setVideos(res.data.watchHistory)
             } catch (err) {
                 setError(err);
             } finally {
@@ -63,7 +63,7 @@ function LikedVideos() {
                         <div className="flex h-full items-center justify-center">
                             <Empty
                                 message="No videos Here"
-                                description="It seems like you haven't liked any videos yet."
+                                description="It seems like you haven't watched any videos yet."
                                 Icon={PlayIcon}
                             />
                         </div>
@@ -85,4 +85,4 @@ function LikedVideos() {
     )
 }
 
-export default LikedVideos;
+export default History;
