@@ -4,6 +4,7 @@ import SignUp from "./SignUp"
 import Video from "./Video"
 import LikedVideos from "./LikedVideos"
 import History from "./History"
+import Channel from "./Channel"
 
 
 export {
@@ -12,5 +13,6 @@ export {
   SignUp,
   Video,
   LikedVideos,
-  History
+  History,
+  Channel
 }

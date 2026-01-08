@@ -100,9 +100,13 @@ export class UserServices {
         }
     }
 
-    async getChannelProfile(userName){
+    async getChannelProfile(userName, userId){
         try {
-            return (await axios.get(`/users/c/${userName}`)).data
+            return (await axios.get(`/users/c/${userName}`, {
+                params: {
+                    userId
+                }
+            })).data
         } catch (err){
             console.error("services :: userServices :: getChannelProfile :: error:")
             throw err
