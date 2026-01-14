@@ -2,7 +2,6 @@ import React from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 const Empty = ({ message, description, Icon, BtnText }) => {
-    const isOwner = true; // This should be determined by your application logic
     return (
         <div className="w-full max-w-sm text-center">
             <p className="mb-3 w-full">
@@ -12,8 +11,8 @@ const Empty = ({ message, description, Icon, BtnText }) => {
             </p>
             <h5 className="mb-2 font-semibold">{message}</h5>
             <p>{description}</p>
-            {isOwner && BtnText && (
-                <button className="mt-4 inline-flex items-center gap-x-2 bg-[#ae7aff] px-3 py-2 font-semibold text-black">
+            {BtnText && (
+                <button className="mt-4 inline-flex items-center gap-x-2 bg-[#ae7aff] px-3 py-2 font-semibold text-black rounded-lg hover:bg-[#9c5fff] hover:scale-105 active:scale-95 transition-all duration-200 ease-in-out">
                     <PlusIcon className="h-5 w-5" strokeWidth={2} />
                     {BtnText}
                 </button>

@@ -28,7 +28,7 @@ function Home() {
         hasNextPage,
         isFetchingNextPage,
     } = useInfiniteQuery({
-        queryKey: ["videos"],
+        queryKey: ["videos", "home"],
         queryFn: fetchVideos,
         refetchOnWindowFocus: false,
         staleTime: 2 * 60 * 1000,

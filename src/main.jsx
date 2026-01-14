@@ -5,8 +5,8 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store/store.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home, Login, SignUp, Video, LikedVideos, History, Channel } from "./pages";
-import { AuthLayout, ChannelVideos } from "./components";
+import { Home, Login, SignUp, Video, LikedVideos, History, Channel, Edit } from "./pages";
+import { AuthLayout, ChannelVideos, EditPersonalInfo, EditChannelInfo, ChangePass } from "./components";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import conf from "./conf";
 
@@ -62,6 +62,32 @@ const router = createBrowserRouter([
                     {
                         path: "subscribed",
                         element: <></>, // Create ChannelSubscribed component similarly
+                    },
+                ],
+            },
+            {
+                path: "/:username/edit",
+                element: (
+                    <AuthLayout authentication={true}>
+                        <Edit />
+                    </AuthLayout>
+                ),
+                children: [
+                    {
+                        path: "",
+                        element: <EditPersonalInfo />,
+                    },
+                    {
+                        path: "personal-info",
+                        element: <EditPersonalInfo />,
+                    },
+                    {
+                        path: "channel-info",
+                        element: <EditChannelInfo />,
+                    },
+                    {
+                        path: "change-password",
+                        element: <ChangePass />,
                     },
                 ],
             },

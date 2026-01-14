@@ -37,7 +37,7 @@ function ChannelVideos() {
         hasNextPage,
         isFetchingNextPage,
     } = useInfiniteQuery({
-        queryKey: ["videos"],
+        queryKey: ["videos", "channel", userId],
         queryFn: fetchVideos,
         refetchOnWindowFocus: false,
         staleTime: 2 * 60 * 1000,
@@ -81,6 +81,7 @@ function ChannelVideos() {
                     message="No videos uploaded"
                     description="This page has not uploaded any videos yet. Search another page in order to find more videos."
                     Icon={PlayIcon}
+                    BtnText="New Video"
                 />
             </div>
         );

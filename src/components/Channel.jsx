@@ -58,10 +58,9 @@ const Channel = ({ channel }) => {
                     </div>
 
                     <div className="inline-block">
-                        {loggedIn &&
-                        userData?.username !== channel?.username ? (
+                        {userData?.username !== channel?.username ? (
                             <button
-                                className="mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+                                className="mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black hover:bg-[#9c5fff] shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
                                 onClick={async () => {
                                     if (!loggedIn) {
                                         navigate("/login");
@@ -84,7 +83,12 @@ const Channel = ({ channel }) => {
                                     : "Subscribe"}
                             </button>
                         ) : (
-                            <button className="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto">
+                            <button
+                                className="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black hover:bg-[#9c5fff] shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+                                onClick={() =>
+                                    navigate(`/${username}/edit/personal-info`)
+                                }
+                            >
                                 <span className="inline-block w-5">
                                     <PencilIcon strokeWidth={2} />
                                 </span>
