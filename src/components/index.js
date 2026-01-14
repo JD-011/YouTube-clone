@@ -28,6 +28,7 @@ import VideoUploaded from "./VideoUploaded";
 import Loader from "./Loader.jsx";
 import ErrorPage from "./ErrorPage.jsx";
 import AuthLayout from "./AuthLayout.jsx";
+import ChannelVideos from "./ChannelVideos.jsx"
 
 export {
     AddTweet,
@@ -59,5 +60,6 @@ export {
     VideoUploaded,
     Loader,
     ErrorPage,
-    AuthLayout
+    AuthLayout,
+    ChannelVideos,
 }

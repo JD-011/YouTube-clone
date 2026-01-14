@@ -1,14 +1,29 @@
 import React from "react";
-import { PlayIcon, UserPlusIcon, PencilIcon } from "@heroicons/react/24/outline";
+import {
+    PlayIcon,
+    UserPlusIcon,
+    PencilIcon,
+} from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { subscriptionServices } from "../services";
 import { useFormatNumber } from "../hooks";
 
 const Channel = ({ channel }) => {
     const { loggedIn, userData } = useSelector((state) => state.auth);
     const navigate = useNavigate();
+    const location = useLocation();
+    const { username } = useParams();
     const [state, setState] = React.useState(false);
+
+    const isVideosActive =
+        location.pathname === `/channel/${username}` ||
+        location.pathname === `/channel/${username}/videos`;
+    const isPlaylistsActive =
+        location.pathname === `/channel/${username}/playlists`;
+    const isTweetsActive = location.pathname === `/channel/${username}/tweets`;
+    const isSubscribedActive =
+        location.pathname === `/channel/${username}/subscribed`;
 
     return (
         <>
@@ -81,22 +96,58 @@ const Channel = ({ channel }) => {
 
                 <ul className="no-scrollbar sticky top-[66px] z-[2] flex flex-row gap-x-2 overflow-auto border-b-2 border-gray-400 bg-[#121212] py-2 sm:top-[82px]">
                     <li className="w-full">
-                        <button className="w-full border-b-2 border-[#ae7aff] bg-white px-3 py-1.5 text-[#ae7aff]">
+                        <button
+                            onClick={() =>
+                                navigate(`/channel/${username}/videos`)
+                            }
+                            className={`w-full border-b-2 px-3 py-1.5 transition-all duration-200 ${
+                                isVideosActive
+                                    ? "border-[#ae7aff] bg-white text-[#ae7aff]"
+                                    : "border-transparent text-gray-400 hover:bg-white/10 hover:text-white"
+                            }`}
+                        >
                             Videos
                         </button>
                     </li>
                     <li className="w-full">
-                        <button className="w-full border-b-2 border-transparent px-3 py-1.5 text-gray-400">
+                        <button
+                            onClick={() =>
+                                navigate(`/channel/${username}/playlists`)
+                            }
+                            className={`w-full border-b-2 px-3 py-1.5 transition-all duration-200 ${
+                                isPlaylistsActive
+                                    ? "border-[#ae7aff] bg-white text-[#ae7aff]"
+                                    : "border-transparent text-gray-400 hover:bg-white/10 hover:text-white"
+                            }`}
+                        >
                             Playlists
                         </button>
                     </li>
                     <li className="w-full">
-                        <button className="w-full border-b-2 border-transparent px-3 py-1.5 text-gray-400">
+                        <button
+                            onClick={() =>
+                                navigate(`/channel/${username}/tweets`)
+                            }
+                            className={`w-full border-b-2 px-3 py-1.5 transition-all duration-200 ${
+                                isTweetsActive
+                                    ? "border-[#ae7aff] bg-white text-[#ae7aff]"
+                                    : "border-transparent text-gray-400 hover:bg-white/10 hover:text-white"
+                            }`}
+                        >
                             Tweets
                         </button>
                     </li>
                     <li className="w-full">
-                        <button className="w-full border-b-2 border-transparent px-3 py-1.5 text-gray-400">
+                        <button
+                            onClick={() =>
+                                navigate(`/channel/${username}/subscribed`)
+                            }
+                            className={`w-full border-b-2 px-3 py-1.5 transition-all duration-200 ${
+                                isSubscribedActive
+                                    ? "border-[#ae7aff] bg-white text-[#ae7aff]"
+                                    : "border-transparent text-gray-400 hover:bg-white/10 hover:text-white"
+                            }`}
+                        >
                             Subscribed
                         </button>
                     </li>

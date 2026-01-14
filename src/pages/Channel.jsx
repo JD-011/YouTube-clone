@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Empty, Channel as ChannelComponent, Loader, ErrorPage, Header, Sidebar } from "../components";
+import { Channel as ChannelComponent, Loader, ErrorPage, Header, Sidebar } from "../components";
 import { userServices } from "../services";
-import { PlayIcon } from "@heroicons/react/24/outline";
+import { Outlet } from "react-router-dom";
 
 function Channel() {
     const { username } = useParams();
@@ -17,7 +17,7 @@ function Channel() {
         (async() => {
             try {
                 setLoading(true);
-                const res = await userServices.getChannelProfile(username, userData?._id);                
+                const res = await userServices.getChannelProfile(username.replace("@", ""), userData?._id);                
                 if(res?.data) setChannel(res.data)
             } catch (err) {
                 setError(err);
@@ -33,7 +33,7 @@ function Channel() {
                 <Sidebar variant="sticky">
                     <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
                         <div className="flex h-full items-center justify-center">
-                            <Loader size="md" message="Loading..." />
+                            <Loader size="md" message="Loading Channel..." />
                         </div>
                     </section>
                 </Sidebar>
@@ -63,6 +63,7 @@ function Channel() {
             <Sidebar variant="sticky">
                 <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
                     <ChannelComponent channel={channel} />
+                    <Outlet context={{ userId: channel._id }} />
                 </section>   
             </Sidebar>
         </Header>
