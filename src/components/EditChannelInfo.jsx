@@ -280,7 +280,7 @@ const EditChannelInfo = () => {
                             <button className="inline-block rounded-lg border px-3 py-1.5 hover:bg-white/10">
                                 Cancel
                             </button>
-                            <button className="inline-block bg-[#ae7aff] px-3 py-1.5 text-black">
+                            <button className="inline-block bg-[#ae7aff] px-3 py-1.5 text-black rounded-lg hover:bg-[#9c5fff] hover:scale-105 active:scale-95 transition-all duration-200 ease-in-out">
                                 Save changes
                             </button>
                         </div>
