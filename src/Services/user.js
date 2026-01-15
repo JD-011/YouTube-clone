@@ -73,6 +73,15 @@ export class UserServices {
         }
     }
 
+    async updateUsername(username){
+        try {
+            return (await axios.patch("/users/update-username", { username })).data
+        } catch (err){
+            console.error("services :: userServices :: updateUsername :: error:")
+            throw err
+        }
+    }
+
     async updateAccountDetails(userData){
         try {
             return (await axios.patch("/users/update-account-details", userData)).data

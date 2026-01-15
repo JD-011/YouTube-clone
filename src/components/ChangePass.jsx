@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Loader, ErrorPage } from "./";
+import { Loader } from "./";
 import { userServices } from "../services";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
 
@@ -16,7 +16,7 @@ const ChangePass = () => {
             setLoading(true);
             setSuccess(false);
             setError(null);
-            if (!currPass || !newPass || !confirmPass)
+            if (!newPass || !confirmPass)
                 throw new Error("All fields are required");
             if (newPass.length < 8)
                 throw new Error(
@@ -94,6 +94,9 @@ const ChangePass = () => {
                                         setCurrPass(e.target.value)
                                     }
                                 />
+                                <p className="mt-0.5 text-sm text-gray-300">
+                                    Leave blank if you logged in with Google.
+                                </p>
                             </div>
                             <div className="w-full">
                                 <label

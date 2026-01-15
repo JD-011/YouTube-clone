@@ -10,6 +10,8 @@ function Edit() {
     const { userData } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const [channel, setChannel] = useState([]);
+    const [avatarFile, setAvatarFile] = useState(null);
+    const [coverImageFile, setCoverImageFile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -81,8 +83,12 @@ function Edit() {
         <Header>
             <Sidebar variant="sticky">
                 <section className="relative w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
-                    <EditInfo channel={channel} />
-                    <Outlet />
+                    <EditInfo 
+                        channel={channel} 
+                        setAvatarFile={setAvatarFile}
+                        setCoverImageFile={setCoverImageFile}
+                    />
+                    <Outlet context={{ avatarFile, coverImageFile }} />
                 </section>   
             </Sidebar>
         </Header>

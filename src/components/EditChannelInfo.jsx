@@ -1,7 +1,52 @@
-import React from "react";
-import { ClockIcon, ListBulletIcon } from "@heroicons/react/24/outline";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Loader } from "./";
+import { userServices } from "../services";
+import {
+    ClockIcon,
+    ListBulletIcon,
+    CheckCircleIcon,
+    XCircleIcon,
+} from "@heroicons/react/24/outline";
 
 const EditChannelInfo = () => {
+    const navigate = useNavigate();
+    const [username, setUsername] = useState("");
+    const [description, setDescription] = useState("");
+    const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const handleSubmit = async () => {
+        try {
+            setLoading(true);
+            setSuccess(false);
+            setError(null);
+            if (!username || !description)
+                throw new Error("All fields are required");
+            const res = await userServices.updateUsername(username);
+            if (res?.success) {
+                setSuccess(true);
+                navigate(`/@${username}/edit/channel-info`);
+                window.location.reload();
+            }
+        } catch (err) {
+            if (err.status === 400) err.message = "Username is already taken.";
+            setError(err);
+        } finally {
+            setLoading(false);
+            setUsername("");
+            setDescription("");
+        }
+    };
+
+    if (loading)
+        return (
+            <div className="flex mt-25 items-center justify-center">
+                <Loader size="md" message="Loading..." />
+            </div>
+        );
+
     return (
         <div className="px-4 pb-4">
             <div className="flex flex-wrap justify-center gap-y-4 py-4">
@@ -12,6 +57,21 @@ const EditChannelInfo = () => {
                     </p>
                 </div>
                 <div className="w-full sm:w-1/2 lg:w-2/3">
+                    {success && (
+                        <div className="mb-4 flex items-center gap-2 rounded-lg bg-green-500/10 border border-green-500 px-4 py-3 text-green-500">
+                            <CheckCircleIcon className="h-6 w-6" />
+                            <p>Channel info changed successfully!</p>
+                        </div>
+                    )}
+                    {error && (
+                        <div className="mb-4 flex items-center gap-2 rounded-lg bg-red-500/10 border border-red-500 px-4 py-3 text-red-500">
+                            <XCircleIcon className="h-6 w-6" />
+                            <p>
+                                {error?.message ||
+                                    "Failed to change channel info. Please try again."}
+                            </p>
+                        </div>
+                    )}
                     <div className="rounded-lg border">
                         <div className="flex flex-wrap gap-y-4 p-4">
                             <div className="w-full">
@@ -30,7 +90,10 @@ const EditChannelInfo = () => {
                                         className="w-full bg-transparent px-2 py-1.5"
                                         id="username"
                                         placeholder="@username"
-                                        defaultValue="reactpatterns"
+                                        value={username}
+                                        onChange={(e) =>
+                                            setUsername(e.target.value)
+                                        }
                                     />
                                 </div>
                             </div>
@@ -46,7 +109,10 @@ const EditChannelInfo = () => {
                                     rows={4}
                                     id="desc"
                                     placeholder="Channel Description"
-                                    defaultValue="I'm a Product Designer based in Melbourne, Australia. I specialise in UX/UI design, brand strategy, and Webflow development."
+                                    value={description}
+                                    onChange={(e) =>
+                                        setDescription(e.target.value)
+                                    }
                                 ></textarea>
                                 <p className="mt-0.5 text-sm text-gray-300">
                                     275 characters left
@@ -58,13 +124,7 @@ const EditChannelInfo = () => {
                                         className="w-full border-r-8 border-transparent bg-transparent py-1.5 pl-2"
                                         defaultValue="regular"
                                     >
-                                        <option value="light">Light</option>
                                         <option value="regular">Regular</option>
-                                        <option value="semi-bold">
-                                            Semi bold
-                                        </option>
-                                        <option value="bold">Bold</option>
-                                        <option value="bolder">Bolder</option>
                                     </select>
                                 </div>
                                 <button className="h-6 w-6 hover:text-[#ae7aff] focus:text-[#ae7aff]">
@@ -143,133 +203,9 @@ const EditChannelInfo = () => {
                                         className="w-full border-r-8 border-transparent bg-transparent py-1.5 pl-8"
                                         defaultValue="UTC+05:30"
                                     >
-                                        <option value="UTC-12:00">
-                                            (UTC-12:00) International Date Line
-                                            West
-                                        </option>
-                                        <option value="UTC-11:00">
-                                            (UTC-11:00) Coordinated Universal
-                                            Time-11
-                                        </option>
-                                        <option value="UTC-10:00">
-                                            (UTC-10:00) Hawaii
-                                        </option>
-                                        <option value="UTC-09:00">
-                                            (UTC-09:00) Alaska
-                                        </option>
-                                        <option value="UTC-08:00">
-                                            (UTC-08:00) Pacific Time (US &
-                                            Canada)
-                                        </option>
-                                        <option value="UTC-07:00">
-                                            (UTC-07:00) Mountain Time (US &
-                                            Canada)
-                                        </option>
-                                        <option value="UTC-06:00">
-                                            (UTC-06:00) Central Time (US &
-                                            Canada)
-                                        </option>
-                                        <option value="UTC-05:00">
-                                            (UTC-05:00) Eastern Time (US &
-                                            Canada)
-                                        </option>
-                                        <option value="UTC-04:00">
-                                            (UTC-04:00) Atlantic Time (Canada)
-                                        </option>
-                                        <option value="UTC-03:30">
-                                            (UTC-03:30) Newfoundland
-                                        </option>
-                                        <option value="UTC-03:00">
-                                            (UTC-03:00) Buenos Aires, Georgetown
-                                        </option>
-                                        <option value="UTC-02:00">
-                                            (UTC-02:00) Coordinated Universal
-                                            Time-02
-                                        </option>
-                                        <option value="UTC-01:00">
-                                            (UTC-01:00) Azores
-                                        </option>
-                                        <option value="UTC+00:00">
-                                            (UTC+00:00) Coordinated Universal
-                                            Time
-                                        </option>
-                                        <option value="UTC+01:00">
-                                            (UTC+01:00) Central European Time
-                                        </option>
-                                        <option value="UTC+02:00">
-                                            (UTC+02:00) Eastern European Time
-                                        </option>
-                                        <option value="UTC+03:00">
-                                            (UTC+03:00) Moscow, St. Petersburg
-                                        </option>
-                                        <option value="UTC+03:30">
-                                            (UTC+03:30) Tehran
-                                        </option>
-                                        <option value="UTC+04:00">
-                                            (UTC+04:00) Abu Dhabi, Muscat
-                                        </option>
-                                        <option value="UTC+04:30">
-                                            (UTC+04:30) Kabul
-                                        </option>
-                                        <option value="UTC+05:00">
-                                            (UTC+05:00) Tashkent
-                                        </option>
                                         <option value="UTC+05:30">
                                             (UTC+05:30) Chennai, Kolkata,
                                             Mumbai, New Delhi
-                                        </option>
-                                        <option value="UTC+05:45">
-                                            (UTC+05:45) Kathmandu
-                                        </option>
-                                        <option value="UTC+06:00">
-                                            (UTC+06:00) Almaty, Novosibirsk
-                                        </option>
-                                        <option value="UTC+06:30">
-                                            (UTC+06:30) Yangon (Rangoon)
-                                        </option>
-                                        <option value="UTC+07:00">
-                                            (UTC+07:00) Bangkok, Hanoi, Jakarta
-                                        </option>
-                                        <option value="UTC+08:00">
-                                            (UTC+08:00) Beijing, Chongqing, Hong
-                                            Kong
-                                        </option>
-                                        <option value="UTC+08:45">
-                                            (UTC+08:45) Eucla
-                                        </option>
-                                        <option value="UTC+09:00">
-                                            (UTC+09:00) Osaka, Sapporo, Tokyo
-                                        </option>
-                                        <option value="UTC+09:30">
-                                            (UTC+09:30) Adelaide
-                                        </option>
-                                        <option value="UTC+09:45">
-                                            (UTC+09:45) Darwin
-                                        </option>
-                                        <option value="UTC+10:00">
-                                            (UTC+10:00) Brisbane
-                                        </option>
-                                        <option value="UTC+10:30">
-                                            (UTC+10:30) Lord Howe Island
-                                        </option>
-                                        <option value="UTC+11:00">
-                                            (UTC+11:00) Solomon Is., New
-                                            Caledonia
-                                        </option>
-                                        <option value="UTC+11:30">
-                                            (UTC+11:30) Norfolk Island
-                                        </option>
-                                        <option value="UTC+12:00">
-                                            (UTC+12:00) Fiji
-                                        </option>
-                                        <option value="UTC+12:45">
-                                            (UTC+12:45) Chatham Islands
-                                        </option>
-                                        <option value="UTC+13:00">
-                                            (UTC+13:00) Nuku&apos;alofa
-                                        </option>
-                                        <option value="UTC+14:00">
-                                            (UTC+14:00) Kiritimati
                                         </option>
                                     </select>
                                 </div>
@@ -277,10 +213,21 @@ const EditChannelInfo = () => {
                         </div>
                         <hr className="border border-gray-300" />
                         <div className="flex items-center justify-end gap-4 p-4">
-                            <button className="inline-block rounded-lg border px-3 py-1.5 hover:bg-white/10">
+                            <button
+                                className="inline-block rounded-lg border px-3 py-1.5 hover:bg-white/10"
+                                onClick={() => {
+                                    setUsername("");
+                                    setDescription("");
+                                    setError(null);
+                                    setSuccess(false);
+                                }}
+                            >
                                 Cancel
                             </button>
-                            <button className="inline-block bg-[#ae7aff] px-3 py-1.5 text-black rounded-lg hover:bg-[#9c5fff] hover:scale-105 active:scale-95 transition-all duration-200 ease-in-out">
+                            <button
+                                className="inline-block bg-[#ae7aff] px-3 py-1.5 text-black rounded-lg hover:bg-[#9c5fff] hover:scale-105 active:scale-95 transition-all duration-200 ease-in-out"
+                                onClick={handleSubmit}
+                            >
                                 Save changes
                             </button>
                         </div>
