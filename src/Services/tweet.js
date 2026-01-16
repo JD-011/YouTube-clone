@@ -10,9 +10,13 @@ export class TweetServices {
         }
     }
 
-    async getUserTweets(userId){
+    async getUserTweets(userId, UserId){
         try{
-            return (await axios.get(`/tweets/user/${userId}`)).data
+            return (await axios.get(`/tweets/user/${userId}`,{
+                params: {
+                    UserId
+                }
+            })).data
         }catch (err){
             console.error("services :: TweetServices :: getUserTweets :: error:")
             throw err
