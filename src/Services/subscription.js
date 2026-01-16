@@ -10,9 +10,13 @@ export class SubscriptionServices {
         }
     }
 
-    async getSubscribers(channelId){
+    async getSubscribers(channelId, userId){
         try{
-            return (await axios.get(`/subscriptions/c/${channelId}`)).data
+            return (await axios.get(`/subscriptions/c/${channelId}`,{
+                params: { 
+                    userId 
+                }
+            })).data
         }catch (err){
             console.error("services :: SubscriptionServices :: getSubscribers :: error:")
             throw err

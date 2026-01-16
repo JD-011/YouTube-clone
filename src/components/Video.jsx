@@ -5,8 +5,14 @@ import {
     HandThumbDownIcon,
     HandThumbUpIcon,
     UserPlusIcon,
+    PencilIcon,
 } from "@heroicons/react/24/outline";
-import { likeServices, dislikeServices, subscriptionServices, commentServices } from "../services";
+import {
+    likeServices,
+    dislikeServices,
+    subscriptionServices,
+    commentServices,
+} from "../services";
 import { useSelector } from "react-redux";
 
 const Video = ({ videoDetails, videos }) => {
@@ -145,26 +151,47 @@ const Video = ({ videoDetails, videos }) => {
                             </div>
                         </div>
                         <div className="block">
-                            <button
-                                className="mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black hover:bg-[#9c5fff] shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
-                                onClick={async () => {
-                                    if (!loggedIn) {
-                                        navigate("/login");
-                                        return;
+                            {userData?.username !==
+                            videoDetails.owner.username ? (
+                                <button
+                                    className="mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black hover:bg-[#9c5fff] shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+                                    onClick={async () => {
+                                        if (!loggedIn) {
+                                            navigate("/login");
+                                            return;
+                                        }
+                                        await subscriptionServices.toggleSubscription(
+                                            videoDetails.owner._id
+                                        );
+                                        if (videoDetails.owner.subscribed)
+                                            videoDetails.owner.subscribed = false;
+                                        else
+                                            videoDetails.owner.subscribed = true;
+                                        setState((prev) => !prev);
+                                    }}
+                                >
+                                    <span className="inline-block w-5">
+                                        <UserPlusIcon strokeWidth={2} />
+                                    </span>
+                                    {videoDetails.owner.subscribed
+                                        ? "Subscribed"
+                                        : "Subscribe"}
+                                </button>
+                            ) : (
+                                <button
+                                    className="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black hover:bg-[#9c5fff] shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
+                                    onClick={() =>
+                                        navigate(
+                                            `/${userData.username}/edit/personal-info`
+                                        )
                                     }
-                                    await subscriptionServices.toggleSubscription(videoDetails.owner._id);
-                                    if (videoDetails.owner.subscribed) videoDetails.owner.subscribed = false;
-                                    else videoDetails.owner.subscribed = true;
-                                    setState((prev) => !prev);
-                                }}
-                            >
-                                <span className="inline-block w-5">
-                                    <UserPlusIcon strokeWidth={2} />
-                                </span>
-                                {videoDetails.owner.subscribed
-                                    ? "Subscribed"
-                                    : "Subscribe"}
-                            </button>
+                                >
+                                    <span className="inline-block w-5">
+                                        <PencilIcon strokeWidth={2} />
+                                    </span>
+                                    Edit
+                                </button>
+                            )}
                         </div>
                     </div>
                     <hr className="my-4 border-white" />
@@ -186,13 +213,17 @@ const Video = ({ videoDetails, videos }) => {
                             type="text"
                             className="w-full rounded-lg border bg-transparent px-2 py-1 placeholder-white"
                             placeholder="Add a Comment"
-                            onKeyDown={async(e) => {
-                                if(e.key !== "Enter") return;
-                                if(!loggedIn){
+                            onKeyDown={async (e) => {
+                                if (e.key !== "Enter") return;
+                                if (!loggedIn) {
                                     navigate("/login");
                                     return;
                                 }
-                                const comment = await commentServices.addComment(videoDetails._id, {content: e.target.value});
+                                const comment =
+                                    await commentServices.addComment(
+                                        videoDetails._id,
+                                        { content: e.target.value }
+                                    );
                                 const newComment = {
                                     _id: comment.data._id,
                                     content: e.target.value,
@@ -206,7 +237,7 @@ const Video = ({ videoDetails, videos }) => {
                                         avatar: userData.avatar,
                                     },
                                     createdAt: new Date().toISOString(),
-                                }
+                                };
                                 e.target.value = "";
                                 videoDetails.commentCount++;
                                 videoDetails.comments.unshift(newComment);

@@ -17,6 +17,7 @@ function Channel() {
         (async() => {
             try {
                 setLoading(true);
+                setError(null);
                 const res = await userServices.getChannelProfile(username.replace("@", ""), userData?._id);                
                 if(res?.data) setChannel(res.data)
             } catch (err) {
@@ -25,7 +26,7 @@ function Channel() {
                 setLoading(false);
             }
         })();
-    }, []);
+    }, [username]);
 
     if (loading)
         return (

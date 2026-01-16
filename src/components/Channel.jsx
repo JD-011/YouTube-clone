@@ -22,8 +22,8 @@ const Channel = ({ channel }) => {
     const isPlaylistsActive =
         location.pathname === `/channel/${username}/playlists`;
     const isTweetsActive = location.pathname === `/channel/${username}/tweets`;
-    const isSubscribedActive =
-        location.pathname === `/channel/${username}/subscribed`;
+    const isSubscribersActive =
+        location.pathname === `/channel/${username}/subscribers`;
 
     return (
         <>
@@ -144,15 +144,15 @@ const Channel = ({ channel }) => {
                     <li className="w-full">
                         <button
                             onClick={() =>
-                                navigate(`/channel/${username}/subscribed`)
+                                navigate(`/channel/${username}/subscribers`)
                             }
                             className={`w-full border-b-2 px-3 py-1.5 transition-all duration-200 ${
-                                isSubscribedActive
+                                isSubscribersActive
                                     ? "border-[#ae7aff] bg-white text-[#ae7aff]"
                                     : "border-transparent text-gray-400 hover:bg-white/10 hover:text-white"
                             }`}
                         >
-                            Subscribed
+                            Subscribers
                         </button>
                     </li>
                 </ul>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import { tweetServices, likeServices, dislikeServices } from "../services";
 import { useSelector } from "react-redux";
 import { useOutletContext, useNavigate } from "react-router-dom";

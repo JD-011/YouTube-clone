@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, Login, SignUp, Video, LikedVideos, History, Channel, Edit } from "./pages";
-import { AuthLayout, ChannelVideos, Tweets, EditPersonalInfo, EditChannelInfo, ChangePass } from "./components";
+import { AuthLayout, ChannelVideos, Tweets, Playlists, ChannelSubscribers, EditPersonalInfo, EditChannelInfo, ChangePass } from "./components";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import conf from "./conf";
 
@@ -53,15 +53,15 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "playlists",
-                        element: <></>, // Create ChannelPlaylists component similarly
+                        element: <Playlists />,
                     },
                     {
                         path: "tweets",
                         element: <Tweets />,
                     },
                     {
-                        path: "subscribed",
-                        element: <></>, // Create ChannelSubscribed component similarly
+                        path: "subscribers",
+                        element: <ChannelSubscribers />,
                     },
                 ],
             },
