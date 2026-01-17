@@ -15,33 +15,41 @@ const ChannelList = ({ channels }) => {
             <div className="flex flex-col gap-y-4 py-4">
                 {channels.map((channel) => (
                     <div
-                        className="flex w-full justify-between p-3 rounded-lg transition-all duration-300 ease-in-out hover:bg-white/5 hover:scale-[1.02] hover:shadow-lg cursor-pointer"
+                        className="flex w-full justify-between items-center rounded-lg transition-all duration-300 ease-in-out hover:bg-white/5 hover:scale-[1.02] hover:shadow-lg cursor-pointer"
                         key={channel._id}
-                        onClick={() => navigate(`/channel/@${channel.subscriber.username}`)}
                     >
-                        <div className="flex items-center gap-x-2">
-                            <div className="h-14 w-14 shrink-0">
-                                <img
-                                    src={channel.subscriber.avatar}
-                                    alt={channel.subscriber.fullName}
-                                    className="h-full w-full rounded-full"
-                                />
-                            </div>
-                            <div className="block">
-                                <h6 className="font-semibold">
-                                    {channel.subscriber.fullName}
-                                </h6>
-                                <p className="text-sm text-gray-300">
-                                    {useFormatNumber(
-                                        channel.subscriber.subscribers
-                                    )}
-                                    &nbsp;Subscribers
-                                </p>
+                        <div
+                            className="flex w-full justify-between p-3 rounded-lg"
+                            onClick={() =>
+                                navigate(
+                                    `/channel/@${channel.owner.username}`
+                                )
+                            }
+                        >
+                            <div className="flex items-center gap-x-2">
+                                <div className="h-14 w-14 shrink-0">
+                                    <img
+                                        src={channel.owner.avatar}
+                                        alt={channel.owner.fullName}
+                                        className="h-full w-full rounded-full"
+                                    />
+                                </div>
+                                <div className="block">
+                                    <h6 className="font-semibold">
+                                        {channel.owner.fullName}
+                                    </h6>
+                                    <p className="text-sm text-gray-300">
+                                        {useFormatNumber(
+                                            channel.owner.subscribers
+                                        )}
+                                        &nbsp;Subscribers
+                                    </p>
+                                </div>
                             </div>
                         </div>
                         <div className="block">
                             {userData?.username !==
-                            channel.subscriber.username ? (
+                            channel.owner.username ? (
                                 <button
                                     className="mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black hover:bg-[#9c5fff] shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
                                     onClick={async () => {
@@ -50,19 +58,21 @@ const ChannelList = ({ channels }) => {
                                             return;
                                         }
                                         await subscriptionServices.toggleSubscription(
-                                            channel.subscriber._id
+                                            channel.owner._id
                                         );
-                                        if (channel.subscriber.subscribed)
-                                            channel.subscriber.subscribed = false;
+                                        if (channel.owner.subscribed)
+                                            channel.owner.subscribed = false;
                                         else
-                                            channel.subscriber.subscribed = true;
+                                            channel.owner.subscribed = true;
                                         setState((prev) => !prev);
                                     }}
                                 >
-                                    <span className="inline-block w-5">
-                                        <UserPlusIcon strokeWidth={2} />
-                                    </span>
-                                    {channel.subscriber.subscribed
+                                    {!channel.owner.subscribed && (
+                                        <span className="inline-block w-5">
+                                            <UserPlusIcon strokeWidth={2} />
+                                        </span>
+                                    )}
+                                    {channel.owner.subscribed
                                         ? "Subscribed"
                                         : "Subscribe"}
                                 </button>
@@ -71,7 +81,7 @@ const ChannelList = ({ channels }) => {
                                     className="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black hover:bg-[#9c5fff] shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto"
                                     onClick={() =>
                                         navigate(
-                                            `/${userData.username}/edit/personal-info`
+                                            `/@${userData.username}/edit/personal-info`
                                         )
                                     }
                                 >

@@ -1,9 +1,8 @@
-import { ChannelList } from "./";
+import { ChannelList, Empty, Loader, ErrorPage } from "./";
 import { useState, useEffect } from "react";
 import { subscriptionServices } from "../services";
 import { useSelector } from "react-redux";
 import { useOutletContext, useNavigate } from "react-router-dom";
-import { Empty, Loader, ErrorPage } from ".";
 import { UsersIcon } from "@heroicons/react/24/outline";
 
 const ChannelSubscribers = () => {

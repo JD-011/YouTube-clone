@@ -170,9 +170,11 @@ const Video = ({ videoDetails, videos }) => {
                                         setState((prev) => !prev);
                                     }}
                                 >
-                                    <span className="inline-block w-5">
-                                        <UserPlusIcon strokeWidth={2} />
-                                    </span>
+                                    {!videoDetails.owner.subscribed && (
+                                        <span className="inline-block w-5">
+                                            <UserPlusIcon strokeWidth={2} />
+                                        </span>
+                                    )}
                                     {videoDetails.owner.subscribed
                                         ? "Subscribed"
                                         : "Subscribe"}

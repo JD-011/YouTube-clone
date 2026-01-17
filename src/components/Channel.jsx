@@ -29,7 +29,9 @@ const Channel = ({ channel }) => {
         <>
             <div className="relative min-h-[150px] w-full pt-[16.28%]">
                 <div className="absolute inset-0 overflow-hidden">
-                    <img src={channel?.coverImage} alt="cover-photo" />
+                    {channel?.coverImage && (
+                        <img src={channel?.coverImage} alt="cover-photo" />
+                    )}
                 </div>
             </div>
             <div className="px-4 pb-2">
@@ -75,9 +77,11 @@ const Channel = ({ channel }) => {
                                     setState((prev) => !prev);
                                 }}
                             >
-                                <span className="inline-block w-5">
-                                    <UserPlusIcon strokeWidth={2} />
-                                </span>
+                                {!channel?.isSubscribed && (
+                                    <span className="inline-block w-5">
+                                        <UserPlusIcon strokeWidth={2} />
+                                    </span>
+                                )}
                                 {channel?.isSubscribed
                                     ? "Subscribed"
                                     : "Subscribe"}
