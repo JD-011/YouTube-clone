@@ -6,6 +6,7 @@ import LikedVideos from "./LikedVideos"
 import History from "./History"
 import Channel from "./Channel"
 import Edit from "./Edit"
+import Subscriptions from "./Subscription"
 
 export {
   Home,
@@ -15,5 +16,6 @@ export {
   LikedVideos,
   History,
   Channel,
-  Edit
+  Edit,
+  Subscriptions
 }

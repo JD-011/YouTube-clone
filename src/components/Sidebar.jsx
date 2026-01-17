@@ -10,22 +10,10 @@ const navItems = [
         icon: icons.home,
     },
     {
-        name: "Your videos",
-        path: "/your-videos",
-        mobileView: false,
-        icon: icons.myContent,
-    },
-    {
         name: "Subscrisptions",
         path: "/subscriptions",
         mobileView: true,
         icon: icons.subscribers,
-    },
-    {
-        name: "Playlists",
-        path: "/playlists",
-        mobileView: true,
-        icon: icons.collections,
     },
     {
         name: "Liked Videos",
