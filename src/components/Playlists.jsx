@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useFormatTime, useFormatNumber } from "../hooks";
 import { playlistServices } from "../services";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { Loader, ErrorPage, Empty } from "./";
 import { FolderIcon } from "@heroicons/react/24/outline";
 
 const Playlists = () => {
+    const navigate = useNavigate();
     const { userId } = useOutletContext();
     const [playlists, setPlaylists] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -64,7 +65,7 @@ const Playlists = () => {
                         playlist.videos > 0 && (
                             <div key={playlist._id} className="w-full">
                                 <div className="relative mb-2 w-full pt-[56%]">
-                                    <div className="absolute inset-0">
+                                    <div className="absolute inset-0  cursor-pointer" onClick={() => navigate(`/playlist/${playlist._id}`)}>
                                         <img
                                             src={playlist.thumbnail}
                                             alt={playlist.name}

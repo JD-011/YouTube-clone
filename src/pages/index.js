@@ -7,6 +7,7 @@ import History from "./History"
 import Channel from "./Channel"
 import Edit from "./Edit"
 import Subscriptions from "./Subscription"
+import Playlist from "./Playlist"
 
 export {
   Home,
@@ -17,5 +18,6 @@ export {
   History,
   Channel,
   Edit,
-  Subscriptions
+  Subscriptions,
+  Playlist
 }

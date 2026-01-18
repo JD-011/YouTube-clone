@@ -5,7 +5,7 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store/store.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home, Login, SignUp, Video, Subscriptions, LikedVideos, History, Channel, Edit } from "./pages";
+import { Home, Login, SignUp, Video, Subscriptions, LikedVideos, History, Channel, Edit, Playlist } from "./pages";
 import { AuthLayout, ChannelVideos, Tweets, Playlists, ChannelSubscribers, EditPersonalInfo, EditChannelInfo, ChangePass } from "./components";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import conf from "./conf";
@@ -98,6 +98,10 @@ const router = createBrowserRouter([
                         element: <ChangePass />,
                     },
                 ],
+            },
+            {
+                path: "/playlist/:playlistId",
+                element: <Playlist />,
             },
             {
                 path: "/liked-videos",
