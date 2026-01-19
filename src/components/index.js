@@ -19,12 +19,10 @@ import Sidebar from "./Sidebar";
 import ChannelList from "./ChannelList.jsx";
 import TC from "./TC";
 import Tweets from "./Tweets";
-import UploadingVideo from "./UploadingVideo";
 import UploadVideo from "./UploadVideo";
 import Video from "./Video";
 import VideoCards from "./VideoCards";
 import VideoList from "./VideoList";
-import VideoUploaded from "./VideoUploaded";
 import Loader from "./Loader.jsx";
 import ErrorPage from "./ErrorPage.jsx";
 import AuthLayout from "./AuthLayout.jsx";
@@ -53,12 +51,10 @@ export {
     ChannelList,
     TC,
     Tweets,
-    UploadingVideo,
     UploadVideo,
     Video,
     VideoCards,
     VideoList,
-    VideoUploaded,
     Loader,
     ErrorPage,
     AuthLayout,

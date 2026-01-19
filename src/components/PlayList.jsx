@@ -66,7 +66,7 @@ const Playlist = ({ playlist }) => {
                                 <div className="w-full max-w-3xl gap-x-4 sm:flex">
                                     <div className="relative mb-2 w-full sm:mb-0 sm:w-5/12">
                                         <div className="w-full pt-[56%]">
-                                            <div className="absolute inset-0">
+                                            <div className="absolute inset-0 cursor-pointer" onClick={() => navigate(`/video/${video._id}`)}>
                                                 <img
                                                     src={video.thumbnail}
                                                     alt={video.title}

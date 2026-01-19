@@ -1,10 +1,5 @@
-import React, { useEffect } from "react";
-import {
-    Empty,
-    VideoCards,
-    Loader,
-    ErrorPage,
-} from "../components";
+import { useState, useEffect } from "react";
+import { Empty, VideoCards, Loader, ErrorPage, UploadVideo } from "../components";
 import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 import { videoServices } from "../services";
 import { PlayIcon } from "@heroicons/react/24/outline";
@@ -14,11 +9,19 @@ import { useInView } from "react-intersection-observer";
 function ChannelVideos() {
     const { userId } = useOutletContext();
     const navigate = useNavigate();
+    const [showUpload, setShowUpload] = useState(false);
 
     const fetchVideos = async ({ pageParam }) => {
         try {
             const [res] = await Promise.all([
-                videoServices.getAllVideos(pageParam, 12, "", "createdAt", "desc", userId),
+                videoServices.getAllVideos(
+                    pageParam,
+                    12,
+                    "",
+                    "createdAt",
+                    "desc",
+                    userId,
+                ),
                 new Promise((resolve) => setTimeout(resolve, 1000)),
             ]);
             return res.data;
@@ -82,7 +85,9 @@ function ChannelVideos() {
                     description="This page has not uploaded any videos yet. Search another page in order to find more videos."
                     Icon={PlayIcon}
                     BtnText="New Video"
+                    setShowUpload={setShowUpload}
                 />
+                {showUpload && <UploadVideo setShowUpload={setShowUpload} />}
             </div>
         );
 
