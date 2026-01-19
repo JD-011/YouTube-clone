@@ -8,6 +8,7 @@ import Channel from "./Channel"
 import Edit from "./Edit"
 import Subscriptions from "./Subscription"
 import Playlist from "./Playlist"
+import Dashboard from "./Dashboard"
 
 export {
   Home,
@@ -19,5 +20,6 @@ export {
   Channel,
   Edit,
   Subscriptions,
-  Playlist
+  Playlist,
+  Dashboard,
 }
