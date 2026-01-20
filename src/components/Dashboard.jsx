@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { videoServices } from "../services";
-import { UploadVideo } from "./";
+import { UploadVideo, EditVideo, DeleteVideo } from "./";
 import {
     EyeIcon,
     HeartIcon,
@@ -15,6 +15,12 @@ const Dashboard = ({ channel, videos }) => {
     const navigate = useNavigate();
     const [state, setState] = useState(true);
     const [showUpload, setShowUpload] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
+    const [videoId, setVideoId] = useState(null);
+    const [thumbnail, setThumbnail] = useState(null);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
 
     return (
         <>
@@ -169,10 +175,27 @@ const Dashboard = ({ channel, videos }) => {
                                     </td>
                                     <td className="border-collapse border-b border-gray-600 px-4 py-3 group-last:border-none">
                                         <div className="flex gap-4">
-                                            <button className="h-5 w-5 hover:text-[#ae7aff]">
+                                            <button
+                                                className="h-5 w-5 hover:text-[#ae7aff]"
+                                                onClick={() => {
+                                                    setVideoId(video._id);
+                                                    setShowDelete(true);
+                                                }}
+                                            >
                                                 <TrashIcon />
                                             </button>
-                                            <button className="h-5 w-5 hover:text-[#ae7aff]">
+                                            <button
+                                                className="h-5 w-5 hover:text-[#ae7aff]"
+                                                onClick={() => {
+                                                    setVideoId(video._id);
+                                                    setThumbnail(
+                                                        video.thumbnail,
+                                                    );
+                                                    setTitle(video.title);
+                                                    setDescription(video.description);
+                                                    setShowEdit(true);
+                                                }}
+                                            >
                                                 <PencilIcon />
                                             </button>
                                         </div>
@@ -187,6 +210,21 @@ const Dashboard = ({ channel, videos }) => {
                 <div className="fixed inset-0 top-[calc(66px)] z-10 flex flex-col bg-black/50 px-4 pb-[86px] pt-4 sm:top-[calc(82px)] sm:px-14 sm:py-8">
                     <UploadVideo setShowUpload={setShowUpload} />
                 </div>
+            )}
+            {showDelete && (
+                <DeleteVideo setShowDelete={setShowDelete} videoId={videoId} />
+            )}
+            {showEdit && (
+                <EditVideo
+                    setShowEdit={setShowEdit}
+                    videoId={videoId}
+                    thumbnail={thumbnail}
+                    title={title}
+                    description={description}
+                    setThumbnail={setThumbnail}
+                    setTitle={setTitle}
+                    setDescription={setDescription}
+                />
             )}
         </>
     );
