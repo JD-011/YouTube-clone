@@ -7,73 +7,75 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/authSlice.js";
 import userServices from "../services/user.js";
 
-const navItems = [
-    {
-        name: "Home",
-        slug: "/",
-        mobileView: true,
-        icon: icons.home,
-    },
-    {
-        name: "Your videos",
-        slug: "/",
-        mobileView: false,
-        icon: icons.myContent,
-    },
-    {
-        name: "subscrisptions",
-        slug: "/",
-        mobileView: true,
-        icon: icons.subscribers,
-    },
-    {
-        name: "playlists",
-        slug: "/",
-        mobileView: true,
-        icon: icons.collections,
-    },
-    {
-        name: "Liked Videos",
-        slug: "/liked-videos",
-        mobileView: false,
-        icon: icons.like,
-    },
-    {
-        name: "History",
-        slug: "/",
-        mobileView: true,
-        icon: icons.history,
-    },
-    {
-        name: "Support",
-        slug: "/",
-        mobileView: false,
-        icon: icons.support,
-    },
-    {
-        name: "Settings",
-        slug: "/",
-        mobileView: false,
-        icon: icons.settings,
-    },
-];
-
 const Header = ({ children }) => {
     const navigate = useNavigate();
-    const authStatus = useSelector((state) => state.auth.loggedIn);
+    const { loggedIn, userData } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
+    const [query, setQuery] = React.useState("");
+
+    const navItems = [
+        {
+            name: "Home",
+            path: "/",
+            mobileView: true,
+            icon: icons.home,
+        },
+        {
+            name: "Subscrisptions",
+            path: "/subscriptions",
+            mobileView: true,
+            icon: icons.subscribers,
+        },
+        {
+            name: "My Channel",
+            path: userData?.username ? `/channel/@${userData.username}` : "/login",
+            mobileView: false,
+            icon: icons.myContent,
+        },
+        {
+            name: "Liked Videos",
+            path: "/liked-videos",
+            mobileView: false,
+            icon: icons.like,
+        },
+        {
+            name: "History",
+            path: "/history",
+            mobileView: true,
+            icon: icons.history,
+        },
+        {
+            name: "Support",
+            path: "/support",
+            mobileView: false,
+            icon: icons.support,
+        },
+        {
+            name: "Settings",
+            path: "/settings",
+            mobileView: false,
+            icon: icons.settings,
+        },
+    ];
 
     return (
         <>
             <header className="sticky inset-x-0 top-0 z-50 w-full border-b border-white bg-[#121212] px-4">
                 <nav className="mx-auto flex max-w-8xl items-center py-2">
-                    <div className="mr-4 w-12 shrink-0 sm:w-16">
+                    <div className="mr-4 w-12 shrink-0 sm:w-16 cursor-pointer" onClick={() => navigate("/")}>
                         <Logo />
                     </div>
                     <div className="relative mx-auto hidden w-full max-w-md overflow-hidden sm:block">
                         <input
                             className="w-full border bg-transparent py-1 pl-8 pr-3 placeholder-white outline-none sm:py-2"
                             placeholder="Search"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && query.trim() !== "") {
+                                    navigate(`/search/${encodeURIComponent(query.trim())}`);
+                                }
+                            }}
                         />
                         <span className="absolute left-2.5 top-1/2 inline-block -translate-y-1/2">
                             <MagnifyingGlassIcon className=" h-4 w-4" />
@@ -111,7 +113,7 @@ const Header = ({ children }) => {
                                 ))}
                         </ul>
                         <div className="mb-8 mt-auto flex w-full flex-wrap gap-4 px-4 sm:mb-0 sm:mt-0 sm:items-center sm:px-0">
-                            {!authStatus ? (
+                            {!loggedIn ? (
                                 <>
                                     <button
                                         className="w-full px-4 py-2 font-medium text-[#ae7aff] border border-gray-600 rounded-lg 

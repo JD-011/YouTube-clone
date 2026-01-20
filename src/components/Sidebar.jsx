@@ -1,51 +1,65 @@
 import React from "react";
 import { icons } from "./Icons.jsx";
 import { useNavigate, useLocation } from "react-router-dom";
-
-const navItems = [
-    {
-        name: "Home",
-        path: "/",
-        mobileView: true,
-        icon: icons.home,
-    },
-    {
-        name: "Subscrisptions",
-        path: "/subscriptions",
-        mobileView: true,
-        icon: icons.subscribers,
-    },
-    {
-        name: "Liked Videos",
-        path: "/liked-videos",
-        mobileView: false,
-        icon: icons.like,
-    },
-    {
-        name: "History",
-        path: "/history",
-        mobileView: true,
-        icon: icons.history,
-    },
-    {
-        name: "Support",
-        path: "/support",
-        mobileView: false,
-        icon: icons.support,
-    },
-    {
-        name: "Settings",
-        path: "/settings",
-        mobileView: false,
-        icon: icons.settings,
-    },
-];
+import { useSelector } from "react-redux";
 
 const Sidebar = ({ children, variant = "hover" }, bottomTotalItems = 2) => {
     const navigate = useNavigate();
+    const { userData } = useSelector((state) => state.auth);
     const location = useLocation();
     const currentPath = location.pathname;
     const isSticky = variant === "sticky";
+
+    const navItems = [
+        {
+            name: "Home",
+            path: "/",
+            mobileView: true,
+            icon: icons.home,
+        },
+        {
+            name: "Subscrisptions",
+            path: "/subscriptions",
+            mobileView: true,
+            icon: icons.subscribers,
+        },
+        {
+            name: "My Channel",
+            path: userData?.username ? `/channel/@${userData.username}` : "/login",
+            mobileView: false,
+            icon: icons.myContent,
+        },
+        {
+            name: "Liked Videos",
+            path: "/liked-videos",
+            mobileView: false,
+            icon: icons.like,
+        },
+        {
+            name: "History",
+            path: "/history",
+            mobileView: true,
+            icon: icons.history,
+        },
+        {
+            name: "Admin Panel",
+            path: userData?.username ? `/@${userData.username}/dashboard` : "/login",
+            mobileView: false,
+            icon: icons.admin,
+        },
+        {
+            name: "Support",
+            path: "/support",
+            mobileView: false,
+            icon: icons.support,
+        },
+        {
+            name: "Settings",
+            path: "/settings",
+            mobileView: false,
+            icon: icons.settings,
+        },
+    ];
 
     const sidebarClasses = `
         group fixed inset-x-0 bottom-0 z-40 w-full shrink-0 
@@ -65,7 +79,7 @@ const Sidebar = ({ children, variant = "hover" }, bottomTotalItems = 2) => {
                 <aside className={sidebarClasses}>
                     <ul className="flex justify-around gap-y-2 sm:sticky sm:top-[106px] sm:min-h-[calc(100vh-130px)] sm:flex-col">
                         {navItems.map((item, i, arr) => {
-                            const isActive = currentPath === item.path;
+                            const isActive = currentPath === item.path || (item.path !== "/" && currentPath.startsWith(item.path));
                             return (
                                 <li
                                     key={item.name}

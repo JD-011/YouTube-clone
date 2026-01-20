@@ -9,6 +9,7 @@ import Edit from "./Edit"
 import Subscriptions from "./Subscription"
 import Playlist from "./Playlist"
 import Dashboard from "./Dashboard"
+import Search from "./Search"
 
 export {
   Home,
@@ -22,4 +23,5 @@ export {
   Subscriptions,
   Playlist,
   Dashboard,
+  Search
 }

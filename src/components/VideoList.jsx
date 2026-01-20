@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormatDuration, useFormatTime, useFormatNumber } from "../hooks";
 
-const VideoList = ({ videos }) => {
+const VideoList = ({ videos }) => {    
     const navigate = useNavigate();
 
     return (

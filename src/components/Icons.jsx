@@ -141,4 +141,30 @@ export const icons = {
             />
         </svg>
     ),
+    admin: (
+        <svg
+            style={{ width: "100%" }}
+            viewBox="0 0 22 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            {/* Head */}
+            <path
+                d="M11 12C13.7614 12 16 9.76142 16 7C16 4.23858 13.7614 2 11 2C8.23858 2 6 4.23858 6 7C6 9.76142 8.23858 12 11 12Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+
+            {/* Body */}
+            <path
+                d="M3 20C3 15.5817 6.58172 12 11 12C15.4183 12 19 15.5817 19 20"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    ),
 };
