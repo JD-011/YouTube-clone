@@ -6,7 +6,7 @@ const DeleteVideo = ({ setShowDelete, videoId }) => {
     const deleteVideo = async (videoId) => {
         try {
             await videoServices.deleteVideo(videoId);
-            setShowDelete(false);
+            window.location.reload();
         } catch (error) {
             console.error("Failed to delete video:", error);
         }
