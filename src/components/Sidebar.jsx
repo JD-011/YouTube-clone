@@ -42,7 +42,7 @@ const Sidebar = ({ children, variant = "hover" }, bottomTotalItems = 2) => {
             icon: icons.history,
         },
         {
-            name: "Admin Panel",
+            name: "Admin Dashboard",
             path: userData?.username ? `/@${userData.username}/dashboard` : "/login",
             mobileView: false,
             icon: icons.admin,
