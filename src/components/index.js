@@ -11,12 +11,12 @@ import Empty from "./Empty";
 import Header from "./Header";
 import Login from "./Login";
 import Logo from "./Logo";
-import Playlist from "./Playlist.jsx";
+import Playlist from "./Playlist";
 import Playlists from "./Playlists";
 import PrivacyPolicy from "./PrivacyPolicy";
 import Register from "./Register";
 import Sidebar from "./Sidebar";
-import ChannelList from "./ChannelList.jsx";
+import ChannelList from "./ChannelList";
 import TC from "./TC";
 import Tweets from "./Tweets";
 import UploadVideo from "./UploadVideo";
@@ -24,10 +24,10 @@ import Video from "./Video";
 import VideoCards from "./VideoCards";
 import VideoList from "./VideoList";
 import Loader from "./Loader.jsx";
-import ErrorPage from "./ErrorPage.jsx";
-import AuthLayout from "./AuthLayout.jsx";
-import ChannelVideos from "./ChannelVideos.jsx"
-import ChannelSubscribers from "./ChannelSubscribers.jsx";
+import ErrorPage from "./ErrorPage";
+import AuthLayout from "./AuthLayout";
+import ChannelVideos from "./ChannelVideos"
+import ChannelSubscribers from "./ChannelSubscribers";
 
 export {
     AddTweet,
