@@ -1,6 +1,6 @@
 import Home from "./Home"
 import Login from "./Login"
-import SignUp from "./SignUp"
+import SignUp from "./Signup"
 import Video from "./Video"
 import LikedVideos from "./LikedVideos"
 import History from "./History"
