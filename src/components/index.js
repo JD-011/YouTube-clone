@@ -11,7 +11,7 @@ import Empty from "./Empty";
 import Header from "./Header";
 import Login from "./Login";
 import Logo from "./Logo";
-import Playlist from "./Playlist";
+import Playlist from "./PlaylistDetail.jsx";
 import Playlists from "./Playlists";
 import PrivacyPolicy from "./PrivacyPolicy";
 import Register from "./Register";
