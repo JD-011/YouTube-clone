@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Empty, VideoList, Loader, ErrorPage, Header, Sidebar } from "../components";
-import { likeServices } from "../services";
+import { likeServices } from "../services/index.js";
 import { PlayIcon } from "@heroicons/react/24/outline";
 
 function LikedVideos() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { videoServices } from "../services"
+import { videoServices } from "../services/index.js"
 import { TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const DeleteVideo = ({ setShowDelete, videoId }) => {

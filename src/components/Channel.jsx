@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { subscriptionServices } from "../services";
+import { subscriptionServices } from "../services/index.js";
 import { useFormatNumber } from "../hooks";
 
 const Channel = ({ channel }) => {

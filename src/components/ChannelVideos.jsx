@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Empty, VideoCards, Loader, ErrorPage, UploadVideo } from "../components";
 import { useNavigate, useParams, useOutletContext } from "react-router-dom";
-import { videoServices } from "../services";
+import { videoServices } from "../services/index.js";
 import { PlayIcon } from "@heroicons/react/24/outline";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";

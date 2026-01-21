@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { playlistServices } from "../services";
+import { playlistServices } from "../services/index.js";
 import { useNavigate, useParams } from "react-router-dom";
 import {
     Playlist as PlaylistComponent,

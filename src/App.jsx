@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { login, logout } from "./store/authSlice";
 import { Loader } from "./components"
-import { userServices } from "./services";
+import { userServices } from "./services/index.js";
 
 function App() {
     const queryClient = new QueryClient();

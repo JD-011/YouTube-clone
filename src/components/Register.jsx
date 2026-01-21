@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import Logo from "./Logo";
-import { userServices } from "../services";
+import { userServices } from "../services/index.js";
 import { login as authLogin } from "../store/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";

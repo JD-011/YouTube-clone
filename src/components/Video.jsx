@@ -12,7 +12,7 @@ import {
     dislikeServices,
     subscriptionServices,
     commentServices,
-} from "../services";
+} from "../services/index.js";
 import { useSelector } from "react-redux";
 
 const Video = ({ videoDetails, videos }) => {

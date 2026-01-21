@@ -8,7 +8,7 @@ import {
     Header,
     Sidebar,
 } from "../components";
-import { userServices } from "../services";
+import { userServices } from "../services/index.js";
 import { Outlet } from "react-router-dom";
 
 function Channel() {

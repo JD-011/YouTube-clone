@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { videoServices } from "../services";
+import { videoServices } from "../services/index.js";
 import { UploadVideo, EditVideo, DeleteVideo } from "./";
 import {
     EyeIcon,

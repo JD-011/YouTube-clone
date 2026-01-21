@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Loader } from "./";
-import { userServices } from "../services";
+import { userServices } from "../services/index.js";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
 
 const ChangePass = () => {

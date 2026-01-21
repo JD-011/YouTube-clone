@@ -1,6 +1,6 @@
 import { ChannelList, Empty, Loader, ErrorPage } from "./";
 import { useState, useEffect } from "react";
-import { subscriptionServices } from "../services";
+import { subscriptionServices } from "../services/index.js";
 import { useSelector } from "react-redux";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { UsersIcon } from "@heroicons/react/24/outline";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { subscriptionServices } from "../services";
+import { subscriptionServices } from "../services/index.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormatNumber } from "../hooks";

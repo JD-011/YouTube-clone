@@ -5,7 +5,7 @@ import { icons } from "./Icons.jsx";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/authSlice.js";
-import userServices from "../services/user.js";
+import { userServices } from "../services/index.js";
 
 const Header = ({ children }) => {
     const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { videoServices } from "../services";
+import { videoServices } from "../services/index.js";
 import { ErrorPage } from "./";
 import {
     ArrowUpTrayIcon,

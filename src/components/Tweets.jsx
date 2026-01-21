@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { tweetServices, likeServices, dislikeServices } from "../services";
+import { tweetServices, likeServices, dislikeServices } from "../services/index.js";
 import { useSelector } from "react-redux";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { useFormatTime } from "../hooks";

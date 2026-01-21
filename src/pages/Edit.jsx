@@ -2,7 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { EditInfo, Loader, ErrorPage, Header, Sidebar } from "../components";
-import { userServices } from "../services";
+import { userServices } from "../services/index.js";
 import { Outlet } from "react-router-dom";
 
 function Edit() {

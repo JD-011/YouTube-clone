@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Video as VideoComponent, Header, Sidebar, ErrorPage, Loader } from "../components";
-import { videoServices } from "../services";
+import { videoServices } from "../services/index.js";
 import { useSelector } from "react-redux";
 
 const Video = () => {

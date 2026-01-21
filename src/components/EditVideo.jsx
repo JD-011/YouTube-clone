@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { videoServices }  from "../services"
+import { videoServices }  from "../services/index.js"
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const EditVideo = ({

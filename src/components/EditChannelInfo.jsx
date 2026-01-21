@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "./";
-import { userServices } from "../services";
+import { userServices } from "../services/index.js";
 import {
     ClockIcon,
     ListBulletIcon,

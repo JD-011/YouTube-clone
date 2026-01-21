@@ -8,7 +8,7 @@ import {
     ErrorPage,
 } from "../components";
 import { useSelector } from "react-redux";
-import { subscriptionServices } from "../services";
+import { subscriptionServices } from "../services/index.js";
 import { useNavigate } from "react-router-dom";
 import { UsersIcon } from "@heroicons/react/24/outline";
 

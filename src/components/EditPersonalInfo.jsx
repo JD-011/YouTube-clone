@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Loader } from "./";
-import { userServices } from "../services";
+import { userServices } from "../services/index.js";
 import { useOutletContext } from "react-router-dom";
 import {
     EnvelopeIcon,

@@ -6,7 +6,7 @@ import {
     Loader,
     ErrorPage,
 } from "../components";
-import { dashboardServices } from "../services";
+import { dashboardServices } from "../services/index.js";
 
 const Dashboard = () => {
     const navigate = useNavigate();

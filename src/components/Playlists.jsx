@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useFormatTime, useFormatNumber } from "../hooks";
-import { playlistServices } from "../services";
+import { playlistServices } from "../services/index.js";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { Loader, ErrorPage, Empty } from "./";
 import { FolderIcon } from "@heroicons/react/24/outline";
