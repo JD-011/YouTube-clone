@@ -16,11 +16,11 @@ const router = createBrowserRouter([
         element: <App />,
         children: [
             {
-                path: "",
+                path: "/",
                 element: <Home />,
             },
             {
-                path: "login",
+                path: "/login",
                 element: (
                     <AuthLayout authentication={false}>
                         <Login />
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: "register",
+                path: "/register",
                 element: (
                     <AuthLayout authentication={false}>
                         <SignUp />
@@ -36,15 +36,15 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: "search/:query",
+                path: "/search/:query",
                 element: <Search />,
             },
             {
-                path: "video/:videoId",
+                path: "/video/:videoId",
                 element: <Video />,
             },
             {
-                path: "subscriptions",
+                path: "/subscriptions",
                 element: (
                     <AuthLayout authentication={true}>
                         <Subscriptions />
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
                 )
             },
             {
-                path: "channel/:username",
+                path: "/channel/:username",
                 element: <Channel />,
                 children: [
                     {
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
                 ],
             },
             {
-                path: ":username/edit",
+                path: "/:username/edit",
                 element: (
                     <AuthLayout authentication={true}>
                         <Edit />
@@ -104,11 +104,11 @@ const router = createBrowserRouter([
                 ],
             },
             {
-                path: "playlist/:playlistId",
+                path: "/playlist/:playlistId",
                 element: <Playlist />,
             },
             {
-                path: "liked-videos",
+                path: "/liked-videos",
                 element: (
                     <AuthLayout authentication={true}>
                         <LikedVideos />
@@ -116,7 +116,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: "history",
+                path: "/history",
                 element: (
                     <AuthLayout authentication={true}>
                         <History />
@@ -124,7 +124,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: ":username/dashboard",
+                path: "/:username/dashboard",
                 element: (
                     <AuthLayout authentication={true}>
                         <Dashboard />
@@ -139,7 +139,7 @@ createRoot(document.getElementById("root")).render(
     <StrictMode>
         <Provider store={store}>
             <GoogleOAuthProvider clientId={conf.googleClientId}>
-                <RouterProvider router={router} basename="/" />
+                <RouterProvider router={router} />
             </GoogleOAuthProvider>
         </Provider>
     </StrictMode>
